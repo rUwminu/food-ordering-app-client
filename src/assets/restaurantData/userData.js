@@ -1,0 +1,38 @@
+const userAccList = [
+  {
+    id: 1,
+    username: "John Doe",
+    email: "john@email.com",
+    password: "123456",
+    contact: "117824456",
+    isAdmin: false,
+    isActive: true,
+  },
+  {
+    id: 2,
+    username: "Selena Lin",
+    email: "selena@email.com",
+    password: "123456",
+    contact: "127445556",
+    isAdmin: false,
+    isActive: true,
+  },
+  {
+    id: 3,
+    username: "Smitch Will",
+    email: "smitch@email.com",
+    password: "123456",
+    contact: "127445556",
+    isAdmin: false,
+    isActive: false,
+  },
+  {
+    id: 4,
+    username: "Admin 1",
+    email: "selena@email.com",
+    password: "123456",
+    contact: "110070007",
+    isAdmin: true,
+    isActive: true,
+  },
+];

@@ -10,6 +10,13 @@ import {
   recipesListRequest,
 } from "../../redux/actions/restaurantAction";
 
+// Utils function
+import getShortenBody from "../../utils/getShortenBody";
+
+// Components
+import { AddItemCard, Cart } from "../../components/index";
+
+// Mock api data
 import {
   restaurantData,
   recipesData,
@@ -22,7 +29,9 @@ const SingleRes = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
+  const [isAddOpen, setIsAddOpen] = useState(false);
   const [typeCategory, setTypeCategory] = useState();
+  const [getItemId, setGetItemId] = useState("");
 
   const resList = useSelector((state) => state.resList);
   const { singleRes, loading: resLoading, singleResError } = resList;
@@ -68,10 +77,29 @@ const SingleRes = () => {
   //console.log(recipes)
   //console.log(typeCategory);
 
+  const handleAddItem = (itemId) => {
+    setGetItemId(itemId);
+    setIsAddOpen(true);
+  };
+
   const filterTypeRecipes = (type) => {
     const filtedRecipes = recipes.filter((x) => x.availability === type);
 
-    return filtedRecipes.map((x) => <div key={x.id}>{x.name}</div>);
+    return filtedRecipes.map((x) => (
+      <div key={x.id} className="recipe-card">
+        <img src={x.image} alt="recipe" />
+        <div className="recipe-info">
+          <h2>{x.name}</h2>
+          <p>{getShortenBody(x.bio)}</p>
+          <div className="info-main">
+            <p className="info-price">Price: RM{x.price.toFixed(2)}</p>
+            <div onClick={() => handleAddItem(x.id)} className="info-add-btn">
+              Add to Cart
+            </div>
+          </div>
+        </div>
+      </div>
+    ));
   };
 
   return (
@@ -131,13 +159,14 @@ const SingleRes = () => {
       <BottomContainer>
         <div className="inner-container">
           <div className="category-box">
-            <h1>Categories</h1>
+            <h1 className="box-title">Categories</h1>
             {typeCategory &&
               typeCategory.map((x) => (
                 <div className="type-item">{x.name}</div>
               ))}
           </div>
           <div className="recipe-box">
+            <h1 className="box-title">Quisine</h1>
             {typeCategory &&
               typeCategory.map((x) => (
                 <div className="cate-list">
@@ -146,21 +175,33 @@ const SingleRes = () => {
                 </div>
               ))}
           </div>
-          <div className="cart-box"></div>
+          <div className="cart-box">
+            <Cart />
+          </div>
         </div>
       </BottomContainer>
+      {isAddOpen && (
+        <AddItemCard
+          setIsAddOpen={setIsAddOpen}
+          isAddOpen={isAddOpen}
+          getItemId={getItemId}
+        />
+      )}
     </MainContainer>
   );
 };
 
 const MainContainer = styled.div`
   ${tw`
+    relative
     pt-28
     pb-16
     h-full
     w-full
     bg-gray-100
+    overflow-x-hidden
   `}
+  z-index: 0;
 
   .top-container {
     ${tw`
@@ -325,6 +366,15 @@ const BottomContainer = styled.div`
       justify-center
     `}
 
+    .box-title {
+      ${tw`
+          py-3
+          text-xl
+          md:text-2xl
+          font-semibold
+        `}
+    }
+
     .category-box {
       ${tw`
         w-full
@@ -334,15 +384,6 @@ const BottomContainer = styled.div`
         items-end
         justify-start
       `}
-
-      h1 {
-        ${tw`
-          mb-3
-          text-xl
-          md:text-2xl
-          font-semibold
-        `}
-      }
 
       .type-item {
         ${tw`
@@ -374,9 +415,28 @@ const BottomContainer = styled.div`
 
     .recipe-box {
       ${tw`
-        sm:mx-6
+        relative
+        h-[45rem]
+        min-h-[45rem]
+        sm:mx-3
+        sm:px-3
         flex-grow
+        overflow-y-scroll
+        scrollbar-hide
+        bg-white
       `}
+
+      .box-title {
+        ${tw`
+          mb-0
+          pb-2
+          sticky
+          top-0
+          left-0
+          w-full
+          bg-white
+        `}
+      }
 
       .cate-list {
         ${tw`
@@ -389,6 +449,7 @@ const BottomContainer = styled.div`
 
         h1 {
           ${tw`
+            mb-3
             py-3
             w-full
             text-lg
@@ -397,6 +458,93 @@ const BottomContainer = styled.div`
             border-b
             border-gray-400
           `}
+        }
+
+        .recipe-card {
+          ${tw`
+            h-24
+            md:h-28
+            w-full
+            flex
+            items-start
+            justify-start
+          `}
+
+          img {
+            ${tw`
+              w-24
+              h-24
+              md:w-28
+              md:h-28
+              object-cover
+            `}
+          }
+
+          .recipe-info {
+            ${tw`
+              ml-4
+              h-full
+              flex
+              flex-grow
+              flex-col
+              justify-start
+              items-start
+            `}
+
+            h2 {
+              ${tw`
+                md:text-lg
+                font-semibold
+              `}
+            }
+
+            p {
+              ${tw`
+                text-sm
+                md:text-base
+                text-gray-700
+              `}
+            }
+
+            .info-main {
+              ${tw`
+                mt-auto
+                w-full
+                flex
+                items-center
+                justify-between
+              `}
+
+              .info-price {
+                ${tw`
+                  text-gray-900
+                `}
+              }
+
+              .info-add-btn {
+                ${tw`
+                  py-1
+                  px-4
+                  font-semibold
+                  text-gray-200
+                  bg-b-orange
+                  rounded-sm
+                  cursor-pointer
+
+                  transition
+                  duration-200
+                  ease-in-out
+                `}
+
+                :hover {
+                  ${tw`
+                    bg-opacity-90
+                    shadow-md
+                  `}
+                }
+              }
+            }
+          }
         }
       }
     }

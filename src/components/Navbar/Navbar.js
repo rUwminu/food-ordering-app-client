@@ -1,96 +1,97 @@
-import React, { useState, useEffect } from 'react'
-import tw from 'twin.macro'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import tw from "twin.macro";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // Material ui icons
-import { Search, ShoppingCart } from '@mui/icons-material'
+import { Search, ShoppingCart } from "@mui/icons-material";
 
 // Svg
-import LogoSvg from '../../assets/icons-svg/logo.svg'
+import LogoSvg from "../../assets/icons-svg/logo.svg";
 
 const Navbar = () => {
-  let lastScroll = 0
+  let lastScroll = 0;
 
-  const [isLinkActive, setIsLinkActive] = useState('home')
-  const [isSearchActive, setIsSearchActive] = useState(false)
-  const [isActive, setIsActive] = useState(false)
-  const [isScrollTop, setIsScrollTop] = useState(true)
-  const [isMobile, setIsMobile] = useState()
-  const [isDropOption, setIsDropOption] = useState(false)
+  const [isLinkActive, setIsLinkActive] = useState("home");
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const [isScrollTop, setIsScrollTop] = useState(true);
+  const [isMobile, setIsMobile] = useState();
+  const [isDropOption, setIsDropOption] = useState(false);
 
   const handleResize = () => {
     if (window.innerWidth < 908) {
-      setIsMobile(true)
+      setIsMobile(true);
     } else {
-      setIsMobile(false)
+      setIsMobile(false);
     }
-  }
+  };
 
   const handleScroll = () => {
-    const currentTop = window.scrollY
+    const currentTop = window.scrollY;
 
     if (currentTop <= 0) {
-      setIsScrollTop(true)
+      setIsScrollTop(true);
     }
     if (currentTop > lastScroll) {
-      setIsScrollTop(false)
+      setIsScrollTop(false);
     }
 
-    lastScroll = currentTop
-  }
+    lastScroll = currentTop;
+  };
 
   useEffect(() => {
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    window.addEventListener('scroll', handleScroll)
-  }, [])
+    handleResize();
+    handleScroll();
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <NavContainer
       className={`${
-        isScrollTop ? 'py-6 bg-none' : 'py-[10px] bg-gray-100 shadow-md'
+        isScrollTop ? "py-6 bg-none" : "py-[10px] bg-gray-100 shadow-md"
       }`}
     >
-      <div className='inner-container'>
-        <div className='logo-container'>
-          <img src={LogoSvg} alt='' />
+      <div className="inner-container">
+        <div className="logo-container">
+          <img src={LogoSvg} alt="" />
           <h1>Foodie</h1>
         </div>
         {!isMobile && (
-          <div className='links-container'>
+          <div className="links-container">
             <Link
-              to='/'
-              onClick={() => setIsLinkActive('home')}
+              to="/"
+              onClick={() => setIsLinkActive("home")}
               className={`links-items ${
-                isLinkActive === 'home' && 'text-dred'
+                isLinkActive === "home" && "text-dred"
               }`}
             >
               Home
             </Link>
             <Link
-              to='/'
-              onClick={() => setIsLinkActive('services')}
+              to="/"
+              onClick={() => setIsLinkActive("services")}
               className={`links-items ${
-                isLinkActive === 'services' && 'text-dred'
+                isLinkActive === "services" && "text-dred"
               }`}
             >
               Services
             </Link>
             <Link
-              to='/'
-              onClick={() => setIsLinkActive('menu')}
+              to="/"
+              onClick={() => setIsLinkActive("menu")}
               className={`links-items ${
-                isLinkActive === 'menu' && 'text-dred'
+                isLinkActive === "menu" && "text-dred"
               }`}
             >
               Menu
             </Link>
             <Link
-              to='info/type?name=about'
-              onClick={() => setIsLinkActive('contact')}
+              to="info/type?name=about"
+              onClick={() => setIsLinkActive("contact")}
               className={`links-items ${
-                isLinkActive === 'contact' && 'text-dred'
+                isLinkActive === "contact" && "text-dred"
               }`}
             >
               About us
@@ -100,63 +101,63 @@ const Navbar = () => {
         {isMobile && (
           <AbsoluteNav
             className={`${
-              isActive ? 'translate-x-0 shadow-md' : 'translate-x-full'
+              isActive ? "translate-x-0 shadow-md" : "translate-x-full"
             }`}
           >
             <Link
               to={`/`}
-              className={`nav-link ${isLinkActive === 'home' && 'text-dred'}`}
+              className={`nav-link ${isLinkActive === "home" && "text-dred"}`}
             >
               Home
             </Link>
             <Link
               to={`/`}
               className={`nav-link ${
-                isLinkActive === 'services' && 'text-dred'
+                isLinkActive === "services" && "text-dred"
               }`}
             >
               Services
             </Link>
             <Link
               to={`/`}
-              className={`nav-link ${isLinkActive === 'menu' && 'text-dred'}`}
+              className={`nav-link ${isLinkActive === "menu" && "text-dred"}`}
             >
               Menu
             </Link>
             <Link
               to={`/`}
               className={`nav-link ${
-                isLinkActive === 'contact' && 'text-dred'
+                isLinkActive === "contact" && "text-dred"
               }`}
             >
               Contact
             </Link>
           </AbsoluteNav>
         )}
-        <div className='function-btn-container'>
-          <div className='search-box'>
+        <div className="function-btn-container">
+          <div className="search-box">
             <input
-              type='text'
+              type="text"
               className={`${
-                isSearchActive ? 'w-44 opacity-100' : 'w-0 p-0 opacity-0'
+                isSearchActive ? "w-44 opacity-100" : "w-0 p-0 opacity-0"
               }`}
             />
             <Search
               onClick={() => setIsSearchActive(!isSearchActive)}
-              className={`icon-style ${isSearchActive && 'search-active'}`}
+              className={`icon-style ${isSearchActive && "search-active"}`}
             />
           </div>
           <ShoppingCart
-            className={`icon-style ${isMobile && isSearchActive && 'hidden'}`}
+            className={`icon-style ${isMobile && isSearchActive && "hidden"}`}
           />
           <div
-            className={`login-btn ${isMobile && isSearchActive && 'hidden'}`}
+            className={`login-btn ${isMobile && isSearchActive && "hidden"}`}
           >
             Login
           </div>
           {isMobile && (
             <Burger
-              className={`${isActive && 'line-active'}`}
+              className={`${isActive && "line-active"}`}
               onClick={() => setIsActive(!isActive)}
             >
               <div className={`line-1`} />
@@ -167,8 +168,8 @@ const Navbar = () => {
         </div>
       </div>
     </NavContainer>
-  )
-}
+  );
+};
 
 const NavContainer = styled.div`
   ${tw`
@@ -346,7 +347,7 @@ const NavContainer = styled.div`
       transform: rotate(45deg) translate(-5px, -5px);
     }
   }
-`
+`;
 
 const Burger = styled.div`
   ${tw`
@@ -378,7 +379,7 @@ const Burger = styled.div`
       ease-in-out
     `}
   }
-`
+`;
 
 const AbsoluteNav = styled.div`
   ${tw`
@@ -416,6 +417,6 @@ const AbsoluteNav = styled.div`
         ease-in-out
       `}
   }
-`
+`;
 
-export default Navbar
+export default Navbar;
