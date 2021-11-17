@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
+import { removeItemFromCart } from "../../redux/actions/orderAction";
 
 // Icon
 import { LocalMall, DeleteForever } from "@mui/icons-material";
 
 const Cart = () => {
-  const [getSubTotal, setGetSubTotal] = useState();
+  const location = useLocation();
+  //console.log(location);
+  const dispatch = useDispatch();
+  const [getSubTotal, setGetSubTotal] = useState(0);
 
   const orderList = useSelector((state) => state.orderList);
   const { myOrder } = orderList;
@@ -25,46 +30,63 @@ const Cart = () => {
     return total;
   };
 
+  const handleDelItemFromCart = async (itemId) => {
+    await dispatch(removeItemFromCart(itemId));
+  };
+
   useEffect(() => {
     if (myOrder.length > 0) calSubTotal();
+    else setGetSubTotal(0);
   }, [myOrder]);
 
-  console.log(getSubTotal);
+  //console.log(getSubTotal);
 
   return (
     <CartContainer>
       <h1 className="box-title">Your Cart</h1>
       <div className="cart-container">
-        {myOrder ? (
+        {myOrder.length > 0 ? (
           myOrder.map((item) => {
             const { id, image, name, qty, price } = item;
             const total = price * qty;
 
             return (
-              <div className="item-card">
+              <div key={id} className="item-card">
                 <img src={image} />
                 <div className="info-box">
                   <h2>{name}</h2>
                   <div className="info-price">
                     <span className="qty">Qty: {qty}</span>
                     <span>Price: {price}</span>
-                    <DeleteForever className="del-btn" />
+                    <DeleteForever
+                      onClick={() => handleDelItemFromCart(id)}
+                      className="del-btn"
+                    />
                   </div>
                 </div>
                 <div className="total-box">
-                  Total: <span>RM{total.toFixed(2)}</span>
+                  <p>Total:</p>
+                  <span>RM {total.toFixed(2)}</span>
                 </div>
               </div>
             );
           })
         ) : (
-          <div></div>
+          <div className="empty-cart-container">
+            <LocalMall className="empty-icon" />
+            <h1>Looks Empty</h1>
+          </div>
         )}
       </div>
       {myOrder && (
         <div className="subtotal-container">
-          <h2>SubTotal</h2>
-          <span>{getSubTotal}</span>
+          <div className="subtotal-box">
+            <h2>SubTotal</h2>
+            <span>RM {getSubTotal.toFixed(2)}</span>
+          </div>
+          {location.pathname !== "/cart" && (
+            <div className="checkout-btn">Checkout</div>
+          )}
         </div>
       )}
     </CartContainer>
@@ -164,7 +186,7 @@ const CartContainer = styled.div`
 
     .total-box {
       ${tw`
-        w-16
+        w-28
         flex
         flex-col
         text-sm
@@ -175,6 +197,79 @@ const CartContainer = styled.div`
           font-semibold
         `}
       }
+    }
+  }
+
+  .subtotal-container {
+    ${tw`
+      w-full
+      flex
+      flex-col
+      items-start
+      justify-center
+    `}
+
+    .subtotal-box {
+      ${tw`
+        mb-3
+        w-full
+        flex
+        items-center
+        justify-between
+      `}
+
+      h2 {
+        ${tw`
+          text-lg
+          font-semibold
+        `}
+      }
+
+      span {
+        ${tw`
+          font-semibold
+        `}
+      }
+    }
+
+    .checkout-btn {
+      ${tw`
+        py-1
+        px-6
+        ml-auto
+        font-semibold
+        bg-b-orange
+        text-gray-200
+        rounded-sm
+      `}
+    }
+  }
+
+  .empty-cart-container {
+    ${tw`
+      h-full
+      w-full
+      flex
+      flex-col
+      items-center
+      justify-center
+    `}
+
+    .empty-icon {
+      ${tw`
+        w-40
+        h-40
+        text-gray-400
+      `}
+    }
+
+    h1 {
+      ${tw`
+        text-xl
+        md:text-2xl
+        font-semibold
+        text-gray-900
+      `}
     }
   }
 

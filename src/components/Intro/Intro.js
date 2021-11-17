@@ -1,20 +1,20 @@
-import React from 'react'
-import tw from 'twin.macro'
-import styled from 'styled-components'
+import React from "react";
+import tw from "twin.macro";
+import styled from "styled-components";
 
 // Svg
-import IntroSvg from '../../assets/svg/about.svg'
-import AnalyIcon from '../../assets/icons-svg/analytic.svg'
+import IntroPng from "../../assets/all-png/feature.png";
+import AnalyIcon from "../../assets/icons-svg/analytic.svg";
 
 const Intro = () => {
   return (
     <IntroContainer>
-      <div className='intro-img-container'>
-        <img className='intro-img' src={IntroSvg} alt='' />
+      <div className="intro-img-container">
+        <img className="intro-img" src={IntroPng} alt="" />
       </div>
-      <div className='intro-container'>
-        <span className='title-span'>Why Choose us</span>
-        <h1 className='title'>
+      <div className="intro-container">
+        <span className="title-span">Why Choose us</span>
+        <h1 className="title">
           Every Flavor <br />
           Welcome
         </h1>
@@ -25,12 +25,12 @@ const Intro = () => {
           <br />
           Lorem ipsum dolor sit.
         </p>
-        <div className='intro-highlight'>
-          <div className='icon-bg'>
-            <img src={AnalyIcon} alt='' />
+        <div className="intro-highlight">
+          <div className="icon-bg">
+            <img src={AnalyIcon} alt="" />
           </div>
 
-          <div className='info-box'>
+          <div className="info-box">
             <h2>All in one app.</h2>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. In
@@ -40,8 +40,8 @@ const Intro = () => {
         </div>
       </div>
     </IntroContainer>
-  )
-}
+  );
+};
 
 const IntroContainer = styled.div`
   ${tw`
@@ -161,6 +161,6 @@ const IntroContainer = styled.div`
       }
     }
   }
-`
+`;
 
-export default Intro
+export default Intro;

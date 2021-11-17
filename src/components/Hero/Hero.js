@@ -1,40 +1,40 @@
-import React from 'react'
-import tw from 'twin.macro'
-import styled from 'styled-components'
+import React from "react";
+import tw from "twin.macro";
+import styled from "styled-components";
 
-// svg
-import HeroSvg from '../../assets/svg/hero-main.svg'
-import PlaySvg from '../../assets/svg/play.svg'
+// svg & png
+import HeroPng from "../../assets/all-png/heroimg.png";
+import PlaySvg from "../../assets/svg/play.svg";
 
 const Hero = () => {
   return (
     <HeroSection>
-      <div className='hero-info'>
-        <div className='hero-tag'>Super Fast Delivery</div>
-        <h1 className='hero-title'>
+      <div className="hero-info">
+        <div className="hero-tag">Super Fast Delivery</div>
+        <h1 className="hero-title">
           Deliver <span>your</span>
           <br />
           Food Within
           <br />
           <span>30</span> min
         </h1>
-        <p className='hero-info'>
+        <p className="hero-info">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit lorem.
         </p>
-        <div className='hero-btn-box'>
-          <div className='get-start-btn'>Get Started</div>
-          <div className='play-btn'>
-            <img src={PlaySvg} alt='' />
+        <div className="hero-btn-box">
+          <div className="get-start-btn">Get Started</div>
+          <div className="play-btn">
+            <img src={PlaySvg} alt="" />
             <span>Watch Video</span>
           </div>
         </div>
       </div>
-      <div className='hero-img'>
-        <img src={HeroSvg} alt='' />
+      <div className="hero-img">
+        <img src={HeroPng} alt="" />
       </div>
     </HeroSection>
-  )
-}
+  );
+};
 
 const HeroSection = styled.div`
   ${tw`
@@ -187,6 +187,6 @@ const HeroSection = styled.div`
       `}
     }
   }
-`
+`;
 
-export default Hero
+export default Hero;

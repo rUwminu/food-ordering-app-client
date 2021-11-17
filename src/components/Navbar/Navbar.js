@@ -3,6 +3,9 @@ import tw from "twin.macro";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+// Redux
+import { useSelector } from "react-redux";
+
 // Material ui icons
 import { Search, ShoppingCart } from "@mui/icons-material";
 
@@ -18,6 +21,9 @@ const Navbar = () => {
   const [isScrollTop, setIsScrollTop] = useState(true);
   const [isMobile, setIsMobile] = useState();
   const [isDropOption, setIsDropOption] = useState(false);
+
+  const orderList = useSelector((state) => state.orderList);
+  const { myOrder } = orderList;
 
   const handleResize = () => {
     if (window.innerWidth < 908) {
@@ -147,9 +153,12 @@ const Navbar = () => {
               className={`icon-style ${isSearchActive && "search-active"}`}
             />
           </div>
-          <ShoppingCart
-            className={`icon-style ${isMobile && isSearchActive && "hidden"}`}
-          />
+          <Link to="cart" className="cart-box">
+            <ShoppingCart
+              className={`icon-style ${isMobile && isSearchActive && "hidden"}`}
+            />
+            {myOrder.length > 0 && <span className="red-dot">&nbsp;</span>}
+          </Link>
           <div
             className={`login-btn ${isMobile && isSearchActive && "hidden"}`}
           >
@@ -286,6 +295,24 @@ const NavContainer = styled.div`
         top-0
         bottom-0
       `}
+    }
+
+    .cart-box {
+      ${tw`
+        relative
+      `}
+
+      .red-dot {
+        ${tw`
+          w-3
+          h-3
+          absolute
+          top-1
+          right-3
+          bg-b-orange
+          rounded-full
+        `}
+      }
     }
 
     .search-box {

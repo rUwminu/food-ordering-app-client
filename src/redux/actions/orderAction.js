@@ -2,6 +2,7 @@ import {
   ADD_ITEM_TO_CART_FAIL,
   ADD_ITEM_TO_CART_REQUEST,
   ADD_ITEM_TO_CART_SUCCESS,
+  REMOVE_ITEM_FROM_CART,
 } from "../constants/orderConstant";
 
 export const addItemToCart = (item) => (dispatch) => {
@@ -27,4 +28,11 @@ export const addItemToCart = (item) => (dispatch) => {
       payload: err,
     });
   }
+};
+
+export const removeItemFromCart = (itemId) => (dispatch) => {
+  dispatch({
+    type: REMOVE_ITEM_FROM_CART,
+    payload: itemId,
+  });
 };

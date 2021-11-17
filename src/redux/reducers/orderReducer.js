@@ -2,6 +2,7 @@ import {
   ADD_ITEM_TO_CART_FAIL,
   ADD_ITEM_TO_CART_REQUEST,
   ADD_ITEM_TO_CART_SUCCESS,
+  REMOVE_ITEM_FROM_CART,
 } from "../constants/orderConstant";
 
 export const orderListReducer = (state = { myOrder: [] }, action) => {
@@ -31,9 +32,13 @@ export const orderListReducer = (state = { myOrder: [] }, action) => {
           myOrder: [...newArray],
         };
       }
-
     case ADD_ITEM_TO_CART_FAIL:
       return { loading: false, ...state, error: action.payload };
+    case REMOVE_ITEM_FROM_CART:
+      return {
+        ...state,
+        myOrder: state.myOrder.filter((x) => x.id !== action.payload),
+      };
     default:
       return state;
   }

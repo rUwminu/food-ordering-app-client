@@ -376,13 +376,15 @@ const BottomContainer = styled.div`
     }
 
     .category-box {
-      ${tw`
+      ${tw`      
         w-full
         max-w-[20rem]
         flex
         flex-col
         items-end
         justify-start
+        hidden
+        lg:inline-flex
       `}
 
       .type-item {
@@ -419,8 +421,9 @@ const BottomContainer = styled.div`
         h-[45rem]
         min-h-[45rem]
         sm:mx-3
-        sm:px-3
+        px-3
         flex-grow
+        max-w-lg
         overflow-y-scroll
         scrollbar-hide
         bg-white
@@ -462,6 +465,7 @@ const BottomContainer = styled.div`
 
         .recipe-card {
           ${tw`
+            mb-4
             h-24
             md:h-28
             w-full
@@ -551,6 +555,8 @@ const BottomContainer = styled.div`
 
     .cart-box {
       ${tw`
+        hidden
+        md:inline-flex
         w-full
         max-w-xs
       `}
