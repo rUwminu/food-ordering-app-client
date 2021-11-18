@@ -39,7 +39,7 @@ const OrderCart = () => {
   const formArray = [
     <LoginForm />,
     <AddressForm setCurrentStep={setCurrentStep} currentStep={currentStep} />,
-    <PaymentForm />,
+    <PaymentForm setCurrentStep={setCurrentStep} currentStep={currentStep} />,
   ];
 
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -158,10 +158,13 @@ const MultiStepForm = styled.div`
       justify-center
       mt-10
       w-full
+      h-full
       min-h-[25rem]
       bg-white
       rounded-sm
       shadow-md
+      overflow-y-scroll
+      overflow-x-hidden
     `}
   }
 

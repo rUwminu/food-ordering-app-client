@@ -4,13 +4,16 @@ import styled from "styled-components";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import { userAddAddress } from "../../redux/actions/userAction";
+import { userAddAddress } from "../../../redux/actions/userAction";
 
 const AddressForm = ({ setCurrentStep, currentStep }) => {
   const dispatch = useDispatch();
 
   const userSignIn = useSelector((state) => state.userSignIn);
   const { user } = userSignIn;
+
+  const addressDetail = useSelector((state) => state.addressDetail);
+  const { address } = addressDetail;
 
   const addressState = {
     name: "",
@@ -27,9 +30,12 @@ const AddressForm = ({ setCurrentStep, currentStep }) => {
         ...addressInput,
         name: user.username,
         phoneNum: user.phoneNum,
+        state: address.state,
+        street: address.street,
+        postalCode: address.postalCode,
       });
     }
-  }, [user]);
+  }, [user, address]);
 
   const handleAddAddress = () => {
     if (
@@ -40,6 +46,7 @@ const AddressForm = ({ setCurrentStep, currentStep }) => {
       addressInput.postalCode !== ""
     ) {
       // Save Address
+      console.log("clicked");
       dispatch(userAddAddress(addressInput));
       setCurrentStep(currentStep + 1);
     }
@@ -51,6 +58,7 @@ const AddressForm = ({ setCurrentStep, currentStep }) => {
       <div className="address-box">
         <div className="input-items">
           <input
+            value={addressInput.state}
             onChange={(e) =>
               setAddressInput({ ...addressInput, state: e.target.value })
             }
@@ -61,6 +69,7 @@ const AddressForm = ({ setCurrentStep, currentStep }) => {
         </div>
         <div className="input-items">
           <input
+            value={addressInput.street}
             onChange={(e) =>
               setAddressInput({ ...addressInput, street: e.target.value })
             }
@@ -71,6 +80,7 @@ const AddressForm = ({ setCurrentStep, currentStep }) => {
         </div>
         <div className="input-items">
           <input
+            value={addressInput.postalCode}
             onChange={(e) =>
               setAddressInput({ ...addressInput, postalCode: e.target.value })
             }
@@ -85,7 +95,6 @@ const AddressForm = ({ setCurrentStep, currentStep }) => {
         <div className="input-items inactive">
           <input
             onChange={(e) => {
-              console.log(e.target.value);
               setAddressInput({ ...addressInput, name: e.target.value });
             }}
             type="text"

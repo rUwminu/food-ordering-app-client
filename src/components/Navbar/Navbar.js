@@ -23,7 +23,7 @@ const Navbar = () => {
   const [isDropOption, setIsDropOption] = useState(false);
 
   const orderList = useSelector((state) => state.orderList);
-  const { myOrder } = orderList;
+  const { myCart } = orderList;
 
   const handleResize = () => {
     if (window.innerWidth < 908) {
@@ -157,7 +157,7 @@ const Navbar = () => {
             <ShoppingCart
               className={`icon-style ${isMobile && isSearchActive && "hidden"}`}
             />
-            {myOrder.length > 0 && <span className="red-dot">&nbsp;</span>}
+            {myCart.length > 0 && <span className="red-dot">&nbsp;</span>}
           </Link>
           <div
             className={`login-btn ${isMobile && isSearchActive && "hidden"}`}

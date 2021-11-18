@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -17,10 +17,10 @@ const Cart = () => {
   const [getSubTotal, setGetSubTotal] = useState(0);
 
   const orderList = useSelector((state) => state.orderList);
-  const { myOrder } = orderList;
+  const { myCart } = orderList;
 
   const calSubTotal = () => {
-    const total = myOrder
+    const total = myCart
       .map((item) => {
         return item.price * item.qty;
       })
@@ -35,9 +35,9 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    if (myOrder.length > 0) calSubTotal();
+    if (myCart.length > 0) calSubTotal();
     else setGetSubTotal(0);
-  }, [myOrder]);
+  }, [myCart]);
 
   //console.log(getSubTotal);
 
@@ -45,8 +45,8 @@ const Cart = () => {
     <CartContainer>
       <h1 className="box-title">Your Cart</h1>
       <div className="cart-container">
-        {myOrder.length > 0 ? (
-          myOrder.map((item) => {
+        {myCart.length > 0 ? (
+          myCart.map((item) => {
             const { id, image, name, qty, price } = item;
             const total = price * qty;
 
@@ -78,14 +78,16 @@ const Cart = () => {
           </div>
         )}
       </div>
-      {myOrder && (
+      {myCart && (
         <div className="subtotal-container">
           <div className="subtotal-box">
             <h2>SubTotal</h2>
             <span>RM {getSubTotal.toFixed(2)}</span>
           </div>
           {location.pathname !== "/cart" && (
-            <div className="checkout-btn">Checkout</div>
+            <Link to="/cart" className="checkout-btn">
+              Checkout
+            </Link>
           )}
         </div>
       )}
@@ -241,7 +243,19 @@ const CartContainer = styled.div`
         bg-b-orange
         text-gray-200
         rounded-sm
+        cursor-pointer
+
+        transition
+        duration-200
+        ease-in-out
       `}
+
+      :hover {
+        ${tw`
+          bg-opacity-90
+          shadow-md
+        `}
+      }
     }
   }
 
