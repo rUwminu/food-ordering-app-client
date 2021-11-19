@@ -47,7 +47,7 @@ export const orderListReducer = (
     case REMOVE_ITEM_FROM_CART:
       return {
         ...state,
-        myCart: state.myOrder.filter((x) => x.id !== action.payload),
+        myCart: state.myCart.filter((x) => x.id !== action.payload),
       };
     case CREATE_NEW_ORDER:
       return {

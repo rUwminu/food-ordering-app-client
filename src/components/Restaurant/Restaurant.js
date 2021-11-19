@@ -53,8 +53,10 @@ const Restaurant = () => {
 
   useEffect(() => {
     if (allRes) {
+      let random = allRes.sort(() => 0.5 - Math.random()).slice(0, 3)
+
       getResTypeState()
-      setResAllList(allRes)
+      setResAllList(random)
     }
   }, [allRes])
 

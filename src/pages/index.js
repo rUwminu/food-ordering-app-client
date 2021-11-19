@@ -3,3 +3,4 @@ export { default as Info } from "./Info/Info";
 export { default as SingleRes } from "./SingleRestaurant/SingleRes";
 export { default as OrderCart } from "./OrderCart/OrderCart";
 export { default as Login } from "./Login&Regis/Login";
+export { default as Setting } from "./Setting/Setting";

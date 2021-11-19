@@ -9,8 +9,15 @@ export { default as Footer } from "./Footer/Footer";
 // Utils Component
 export { default as AddItemCard } from "./AddItemCard/AddItemCard";
 export { default as Cart } from "./Cart/Cart";
+
+// Cart Components
 export { default as MultiStepProgressbar } from "./MultiStepProgressbar/MultiStepProgressBar";
 export { default as LoginForm } from "./CheckoutAllForm/LoginForm/LoginForm";
 export { default as AddressForm } from "./CheckoutAllForm/AddressForm/AddressForm";
 export { default as PaymentForm } from "./CheckoutAllForm/PaymentForm/PaymentForm";
-export { default as CompleteFrom } from "./CheckoutAllForm/CompleteForm/CompleteForm";
+export { default as CompleteForm } from "./CheckoutAllForm/CompleteForm/CompleteForm";
+
+// Setting Components
+export { default as MyAddressBook } from "./SettingForm/MyAddressBook/AddressBook";
+export { default as MyOrder } from "./SettingForm/MyOrder/MyOrder";
+export { default as MyProfile } from "./SettingForm/MyProfile/MyProfile";

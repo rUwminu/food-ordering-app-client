@@ -6,8 +6,18 @@ import { Link } from "react-router-dom";
 // Redux
 import { useSelector } from "react-redux";
 
+// Util function
+import getFirstCharaterOfUsername from "../../utils/getFirstCharOfUsername";
+
 // Material ui icons
-import { Search, ShoppingCart } from "@mui/icons-material";
+import {
+  Search,
+  ShoppingCart,
+  KeyboardArrowDown,
+  AssignmentInd,
+  ViewList,
+  Logout,
+} from "@mui/icons-material";
 
 // Svg
 import LogoSvg from "../../assets/icons-svg/logo.svg";
@@ -21,6 +31,9 @@ const Navbar = () => {
   const [isScrollTop, setIsScrollTop] = useState(true);
   const [isMobile, setIsMobile] = useState();
   const [isDropOption, setIsDropOption] = useState(false);
+
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { user } = userSignIn;
 
   const orderList = useSelector((state) => state.orderList);
   const { myCart } = orderList;
@@ -56,7 +69,7 @@ const Navbar = () => {
   return (
     <NavContainer
       className={`${
-        isScrollTop ? "py-6 bg-none" : "py-[10px] bg-gray-100 shadow-md"
+        isScrollTop ? "py-6 bg-none" : "py-[10px] bg-white shadow-md"
       }`}
     >
       <div className="inner-container">
@@ -159,11 +172,54 @@ const Navbar = () => {
             />
             {myCart.length > 0 && <span className="red-dot">&nbsp;</span>}
           </Link>
-          <div
-            className={`login-btn ${isMobile && isSearchActive && "hidden"}`}
-          >
-            Login
-          </div>
+          {user ? (
+            <div className="user-box">
+              <div className="user-logo">
+                {getFirstCharaterOfUsername(user.username)}
+              </div>
+              <h1>{user.username}</h1>
+              <KeyboardArrowDown
+                onClick={() => setIsDropOption(!isDropOption)}
+                className={`more-btn ${isDropOption && "active"}`}
+              />
+              <div
+                onMouseLeave={() => setIsDropOption(false)}
+                className={`drop-option-list ${isDropOption && "active"}`}
+              >
+                <h1>Option</h1>
+                <Link
+                  to="/user/type?name=profile"
+                  onClick={() => setIsDropOption(false)}
+                  className="option-item"
+                >
+                  <span>My Profile</span>
+                  <AssignmentInd className="option-icon" />
+                </Link>
+                <Link
+                  to="/user/type?name=myorder"
+                  onClick={() => setIsDropOption(false)}
+                  className="option-item"
+                >
+                  <span>My Order</span>
+                  <ViewList className="option-icon" />
+                </Link>
+                <Link
+                  to="/login"
+                  onClick={() => setIsDropOption(false)}
+                  className="option-item"
+                >
+                  <span>Logout</span>
+                  <Logout className="option-icon" />
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div
+              className={`login-btn ${isMobile && isSearchActive && "hidden"}`}
+            >
+              Login
+            </div>
+          )}
           {isMobile && (
             <Burger
               className={`${isActive && "line-active"}`}
@@ -215,7 +271,8 @@ const NavContainer = styled.div`
 
     img {
       ${tw`
-        w-20
+        w-16
+        sm:w-20
         md:w-24
         mr-3
       `}
@@ -223,6 +280,8 @@ const NavContainer = styled.div`
 
     h1 {
       ${tw`
+        hidden
+        sm:inline-flex
         text-3xl
         md:text-4xl
         font-light
@@ -326,12 +385,143 @@ const NavContainer = styled.div`
       input {
         ${tw`
           py-2
-          px-3
+          pl-8
+          pr-3
           rounded-3xl
 
           transition-all
           duration-200
           ease-in-out
+        `}
+      }
+    }
+
+    .user-box {
+      ${tw`
+        relative
+        flex
+        items-center
+        justify-center
+        z-30
+      `}
+
+      .user-logo {
+        ${tw`
+          flex
+          items-center
+          justify-center
+          mr-3
+          w-12
+          h-12
+          md:w-14
+          md:h-14
+          min-w-[3rem]
+          md:min-w-[3.5rem]
+          text-lg
+          font-semibold
+          border-4
+          border-gray-400
+          bg-b-orange
+          text-gray-50
+          rounded-full
+        `}
+      }
+
+      h1 {
+        ${tw`
+          hidden
+          md:inline-flex
+          mr-2
+          font-semibold
+        `}
+      }
+
+      .more-btn {
+        ${tw`
+          p-2
+          w-10
+          h-10
+          bg-opacity-75
+          rounded-full
+          cursor-pointer
+
+          transition-all
+          duration-500
+          ease-in-out
+        `}
+
+        :hover {
+          ${tw`
+            bg-gray-200
+          `}
+        }
+      }
+
+      .more-btn.active {
+        ${tw`
+          -rotate-180
+        `}
+      }
+
+      .drop-option-list {
+        ${tw`
+          absolute
+          right-0
+          top-16
+          h-0
+          px-2
+          w-48
+          bg-white
+          opacity-0
+          rounded-md
+          shadow-md
+          overflow-hidden
+
+          transition-all
+          duration-500
+          ease-in-out
+        `}
+
+        h1 {
+          ${tw`
+            text-lg
+            font-semibold
+          `}
+        }
+
+        .option-item {
+          ${tw`
+            pr-2
+            py-2
+            w-full
+            flex
+            items-center
+            justify-between
+            text-base
+            text-gray-800
+            font-semibold
+            rounded-md
+            cursor-pointer
+
+            transition-all
+            duration-200
+            ease-in-out
+          `}
+
+          :hover {
+            ${tw`
+              pl-2
+              bg-gray-100
+            `}
+          }
+        }
+      }
+
+      .drop-option-list.active {
+        ${tw`
+          py-2
+          h-44
+          opacity-100
         `}
       }
     }

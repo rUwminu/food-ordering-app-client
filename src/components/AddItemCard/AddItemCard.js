@@ -47,6 +47,7 @@ const AddItemCard = ({ setIsAddOpen, isAddOpen, getItemId }) => {
     <MainContainer
       className={`${isAddOpen ? "opacity-100 z-40" : "opacity-0 z-[-1]"}`}
     >
+      <div className="bg-cover" onClick={() => setIsAddOpen(false)} />
       {productInfo && (
         <div className="add-card">
           <img src={productInfo.image} />
@@ -75,6 +76,7 @@ const AddItemCard = ({ setIsAddOpen, isAddOpen, getItemId }) => {
 
 const MainContainer = styled.div`
   ${tw`
+    relative
     fixed
     top-0
     left-0
@@ -85,13 +87,28 @@ const MainContainer = styled.div`
     flex
     items-center
     justify-center
-    bg-opacity-20
-    bg-gray-900
 
     transition-all
     duration-200
     ease-in-out
   `}
+
+  .bg-cover {
+    ${tw`
+      absolute
+      top-0
+      left-0
+      w-screen
+      h-screen
+      bg-gray-900
+      bg-opacity-10
+      z-0
+
+      transition-all
+    `}
+
+    animation: fadeIn 0.2s ease-in-out alternate forwards;
+  }
 
   .add-card {
     ${tw`
@@ -102,7 +119,10 @@ const MainContainer = styled.div`
         items-start
         justify-start
         bg-gray-50
+        z-10
     `}
+
+    animation: fadeIn 0.2s ease-in-out alternate forwards;
 
     img {
       ${tw`
@@ -138,6 +158,9 @@ const MainContainer = styled.div`
             mt-2
             flex
             flex-col
+            items-start
+            md:items-center
+            justify-start
             md:flex-row
             md:items-center      
         `}
@@ -153,8 +176,10 @@ const MainContainer = styled.div`
           .btn {
             ${tw`
                 p-2
-                w-10
-                h-10
+                w-8
+                h-8
+                md:w-10
+                md:h-10
                 border
                 rounded-sm
 
@@ -186,8 +211,12 @@ const MainContainer = styled.div`
             flex
             items-center
             justify-center
-            py-2
-            px-5
+            mt-2
+            md:mt-0
+            py-1
+            px-3
+            md:py-2
+            md:px-5
             bg-b-orange
             text-gray-100
             font-semibold
@@ -212,6 +241,15 @@ const MainContainer = styled.div`
           }
         }
       }
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
     }
   }
 `;

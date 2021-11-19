@@ -12,6 +12,7 @@ import {
   LoginForm,
   AddressForm,
   PaymentForm,
+  CompleteForm,
 } from "../../components/index";
 
 const stepList = [
@@ -40,6 +41,7 @@ const OrderCart = () => {
     <LoginForm />,
     <AddressForm setCurrentStep={setCurrentStep} currentStep={currentStep} />,
     <PaymentForm setCurrentStep={setCurrentStep} currentStep={currentStep} />,
+    <CompleteForm />,
   ];
 
   const userSignIn = useSelector((state) => state.userSignIn);

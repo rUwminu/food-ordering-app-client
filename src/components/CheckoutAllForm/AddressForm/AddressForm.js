@@ -5,9 +5,12 @@ import styled from "styled-components";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { userAddAddress } from "../../../redux/actions/userAction";
+import { useSearchParams } from "react-router-dom";
 
 const AddressForm = ({ setCurrentStep, currentStep }) => {
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const name = searchParams.get("name");
 
   const userSignIn = useSelector((state) => state.userSignIn);
   const { user } = userSignIn;
@@ -45,10 +48,9 @@ const AddressForm = ({ setCurrentStep, currentStep }) => {
       addressInput.street !== "" &&
       addressInput.postalCode !== ""
     ) {
-      // Save Address
-      console.log("clicked");
       dispatch(userAddAddress(addressInput));
-      setCurrentStep(currentStep + 1);
+
+      if (!name) setCurrentStep(currentStep + 1);
     }
   };
 
@@ -130,7 +132,7 @@ const MainContainer = styled.div`
     flex-col
     items-start
     justify-start
-    p-4
+    py-4
   `}
 
   .input-items {
@@ -138,7 +140,7 @@ const MainContainer = styled.div`
         relative
         mt-4
         w-full
-        w-[49%]
+        md:w-[49%]
         md:max-w-sm
     `}
 
