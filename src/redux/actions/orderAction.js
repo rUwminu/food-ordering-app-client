@@ -63,7 +63,7 @@ export const createNewOrder = (paymentType) => (dispatch) => {
     const randomProgress = {
       status: progressType[Math.floor(Math.random() * progressType.length)],
       datetime: Date.now(),
-    };
+    }
 
     // Api returned data object
     const newOrderData = {
