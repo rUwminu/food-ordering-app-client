@@ -1,81 +1,81 @@
-import React, { useState, useEffect } from 'react'
-import tw from 'twin.macro'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import tw from "twin.macro";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux'
-import { restaurantDetailsRequest } from '../../redux/actions/restaurantAction'
+import { useDispatch, useSelector } from "react-redux";
+import { restaurantDetailsRequest } from "../../redux/actions/restaurantAction";
 
-import { restaurantData } from '../../assets/restaurantData/resData'
+import { restaurantData } from "../../assets/restaurantData/resData";
 
 //Material ui Icons
-import { Room } from '@mui/icons-material'
+import { Room } from "@mui/icons-material";
 
 const Restaurant = () => {
-  const dispatch = useDispatch()
-  const [resAllList, setResAllList] = useState()
-  const [stateFilter, setStateFilter] = useState('All')
-  const [reducedTag, setReducedTag] = useState()
+  const dispatch = useDispatch();
+  const [resAllList, setResAllList] = useState();
+  const [stateFilter, setStateFilter] = useState("All");
+  const [reducedTag, setReducedTag] = useState();
 
-  const resList = useSelector((state) => state.resList)
-  const { allRes, loading, error } = resList
+  const resList = useSelector((state) => state.resList);
+  const { allRes, loading, error } = resList;
 
   const getResTypeState = () => {
     const typeState = allRes.reduce((total, item) => {
-      const { state } = item
+      const { state } = item;
 
-      if (!state) return total
+      if (!state) return total;
 
-      if (!total[state]) total[state] = { id: 1, value: state }
+      if (!total[state]) total[state] = { id: 1, value: state };
 
-      return total
-    }, {})
+      return total;
+    }, {});
 
-    setReducedTag(Object.values(typeState))
-    return typeState
-  }
+    setReducedTag(Object.values(typeState));
+    return typeState;
+  };
 
   useEffect(() => {
     if (restaurantData) {
-      dispatch(restaurantDetailsRequest(restaurantData))
+      dispatch(restaurantDetailsRequest(restaurantData));
     }
-  }, [restaurantData])
+  }, [restaurantData]);
 
   useEffect(() => {
-    if (stateFilter !== 'All') {
-      const newList = allRes.filter((x) => x.state === stateFilter)
-      setResAllList(newList)
+    if (stateFilter !== "All") {
+      const newList = allRes.filter((x) => x.state === stateFilter);
+      setResAllList(newList);
     } else {
-      setResAllList(allRes)
+      setResAllList(allRes);
     }
-  }, [stateFilter])
+  }, [stateFilter]);
 
   useEffect(() => {
     if (allRes) {
-      let random = allRes.sort(() => 0.5 - Math.random()).slice(0, 3)
+      let random = allRes.sort(() => 0.5 - Math.random()).slice(0, 3);
 
-      getResTypeState()
-      setResAllList(random)
+      getResTypeState();
+      setResAllList(random);
     }
-  }, [allRes])
+  }, [allRes]);
 
   //console.log(allRes)
   //console.log(reducedTag)
 
   return (
     <ResContainer>
-      <h1 className='title'>Popular Restaurant</h1>
-      <p className='title-info'>
+      <h1 className="title">Popular Restaurant</h1>
+      <p className="title-info">
         Popular this month. Top restaurants, cafes, pubs, and bars in and around
         you serving delightful food right at your doorstep
       </p>
 
       {reducedTag && (
-        <div className='filter-tag'>
+        <div className="filter-tag">
           <div
-            onClick={() => setStateFilter('All')}
-            className={`state-tag ${stateFilter === 'All' && 'active'}`}
+            onClick={() => setStateFilter("All")}
+            className={`state-tag ${stateFilter === "All" && "active"}`}
           >
             All
           </div>
@@ -83,7 +83,7 @@ const Restaurant = () => {
             <div
               key={x.id}
               onClick={() => setStateFilter(x.value)}
-              className={`state-tag ${stateFilter === x.value && 'active'}`}
+              className={`state-tag ${stateFilter === x.value && "active"}`}
             >
               {x.value}
             </div>
@@ -91,35 +91,38 @@ const Restaurant = () => {
         </div>
       )}
 
-      <div className='res-container'>
+      <div className="res-container">
         {resAllList &&
           resAllList.map((x) => {
             const { id, image, name, state, location, deliveryTime, avgCost } =
-              x
+              x;
 
             return (
-              <ResCard key={id} to={`/restaurant/${id}`}>
-                <img src={image} alt='Restaurant' />
+              <ResCard
+                key={id}
+                to={`/food-ordering-app-client/restaurant/${id}`}
+              >
+                <img src={image} alt="Restaurant" />
                 <h2>{name}</h2>
-                <div className='location-box'>
-                  <Room className='icons' />
+                <div className="location-box">
+                  <Room className="icons" />
                   <span>
                     {state}, {location}
                   </span>
                 </div>
-                <div className='operating-box'>
-                  <div className='delivery-time'>{deliveryTime} HOUR</div>
-                  <div className='min-order'>
+                <div className="operating-box">
+                  <div className="delivery-time">{deliveryTime} HOUR</div>
+                  <div className="min-order">
                     MIN ORDER ${avgCost.toFixed(2)}
                   </div>
                 </div>
               </ResCard>
-            )
+            );
           })}
       </div>
     </ResContainer>
-  )
-}
+  );
+};
 
 const ResContainer = styled.div`
   ${tw`
@@ -207,7 +210,7 @@ const ResContainer = styled.div`
       justify-between
     `}
   }
-`
+`;
 
 const ResCard = styled(Link)`
   ${tw`
@@ -287,6 +290,6 @@ const ResCard = styled(Link)`
       text-gray-400
     `}
   }
-`
+`;
 
-export default Restaurant
+export default Restaurant;

@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react'
-import tw from 'twin.macro'
-import styled from 'styled-components'
-import moment from 'moment'
+import React, { useState, useEffect } from "react";
+import tw from "twin.macro";
+import styled from "styled-components";
+import moment from "moment";
 
 // Redux
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 
 const MyOrder = () => {
-  const [allOrderlist, setAllOrderList] = useState()
+  const [allOrderlist, setAllOrderList] = useState();
 
-  const orderList = useSelector((state) => state.orderList)
-  const { myOrder } = orderList
+  const orderList = useSelector((state) => state.orderList);
+  const { myOrder } = orderList;
 
   useEffect(() => {
-    if (myOrder) setAllOrderList(myOrder)
-  }, [myOrder])
+    if (myOrder) setAllOrderList(myOrder);
+  }, [myOrder]);
 
   return (
     <MainContainer>
-      <h1 className='form-title'>My Order</h1>
-      <div className='order-list-container'>
+      <h1 className="form-title">My Order</h1>
+      <div className="order-list-container">
         {allOrderlist &&
           allOrderlist.map((x) => {
             const {
@@ -29,44 +29,44 @@ const MyOrder = () => {
               subTotal,
               progressStep,
               createdAt,
-            } = x
+            } = x;
 
             return (
-              <div className='order-card' key={id}>
-                <div className='product-list'>
+              <div className="order-card" key={id}>
+                <div className="product-list">
                   {product.map((item) => (
                     <h2>
                       {item.name} X {item.qty}
                     </h2>
                   ))}
                 </div>
-                <div className='product-info'>
-                  <div className='product-subtotal'>
+                <div className="product-info">
+                  <div className="product-subtotal">
                     <h3>Total</h3>
                     <span>RM {subTotal}</span>
                   </div>
-                  <div className='product-payment'>{paymentType}</div>
-                  <div className='product-createdat'>
+                  <div className="product-payment">{paymentType}</div>
+                  <div className="product-createdat">
                     <h3>Order Date</h3>
-                    <span>{moment(createdAt).format('LLL')}</span>
+                    <span>{moment(createdAt).format("LLL")}</span>
                   </div>
                 </div>
                 <div
                   className={`product-progress ${
-                    progressStep[0].status === 'Preparing' && 'prephase'
-                  } ${progressStep[0].status === 'Delivering' && 'delphase'} ${
-                    progressStep[0].status === 'Delivered' && 'conphase'
+                    progressStep[0].status === "Preparing" && "prephase"
+                  } ${progressStep[0].status === "Delivering" && "delphase"} ${
+                    progressStep[0].status === "Delivered" && "conphase"
                   }`}
                 >
                   {progressStep[0].status}
                 </div>
               </div>
-            )
+            );
           })}
       </div>
     </MainContainer>
-  )
-}
+  );
+};
 
 const MainContainer = styled.div`
   ${tw`
@@ -80,6 +80,7 @@ const MainContainer = styled.div`
 
   .form-title {
     ${tw`
+      w-full
       mb-6
       text-xl
       md:text-2xl
@@ -223,6 +224,6 @@ const MainContainer = styled.div`
       transform: translateX(0%);
     }
   }
-`
+`;
 
-export default MyOrder
+export default MyOrder;

@@ -39,7 +39,7 @@ const Cart = () => {
     else setGetSubTotal(0);
   }, [myCart]);
 
-  //console.log(getSubTotal);
+  console.log(location);
 
   return (
     <CartContainer>
@@ -84,8 +84,8 @@ const Cart = () => {
             <h2>SubTotal</h2>
             <span>RM {getSubTotal.toFixed(2)}</span>
           </div>
-          {location.pathname !== "/cart" && (
-            <Link to="/cart" className="checkout-btn">
+          {location.pathname !== "/food-ordering-app-client/cart" && (
+            <Link to="/food-ordering-app-client/cart" className="checkout-btn">
               Checkout
             </Link>
           )}

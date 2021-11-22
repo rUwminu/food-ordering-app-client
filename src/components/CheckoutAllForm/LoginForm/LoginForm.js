@@ -2,13 +2,44 @@ import React, { useState } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 
+// redux
+import { useDispatch } from "react-redux";
+import { userSignInAccount } from "../../../redux/actions/userAction";
+
+// Mock User data API
+import { userAccList } from "../../../assets/restaurantData/userData";
+
 const LoginForm = () => {
+  const dispatch = useDispatch();
   const inputState = {
-    emai: "",
+    email: "",
     password: "",
   };
 
   const [inputValue, setInputValue] = useState(inputState);
+  const [isError, setIsError] = useState();
+
+  const handleLogin = () => {
+    try {
+      const user = userAccList.find((x) => x.email === inputValue.email);
+
+      if (!user) {
+        setIsError({ emailError: "Invalid Email" });
+      }
+
+      if (user) {
+        const { password } = user;
+
+        if (inputValue.password === "" || inputValue.password !== password) {
+          setIsError({ passwordError: "Invalid Password" });
+        }
+
+        dispatch(userSignInAccount(user));
+      }
+    } catch (err) {
+      setIsError({ error: "Server Error" });
+    }
+  };
 
   return (
     <MainContainer>
@@ -45,7 +76,9 @@ const LoginForm = () => {
         <span className="input-ph">Password</span>
       </div>
 
-      <div className="login-btn">Login</div>
+      <div onClick={() => handleLogin()} className="login-btn">
+        Login
+      </div>
     </MainContainer>
   );
 };
@@ -56,14 +89,14 @@ const MainContainer = styled.div`
     max-w-md
     flex
     flex-col
-    items-center
+    items-start
     justify-center
     p-4
   `}
 
   h1 {
     ${tw`
-        text-xl
+        text-2xl
         lg:text-3xl
     `}
 
@@ -81,7 +114,6 @@ const MainContainer = styled.div`
         pb-4
         text-base
         md:text-lg
-        text-center
     `}
   }
 

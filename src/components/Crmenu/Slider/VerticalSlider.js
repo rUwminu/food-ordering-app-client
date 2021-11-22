@@ -1,75 +1,75 @@
-import React, { useState, useEffect } from 'react'
-import tw from 'twin.macro'
-import styled from 'styled-components'
+import React, { useState, useEffect } from "react";
+import tw from "twin.macro";
+import styled from "styled-components";
 
 const VerticalSlider = ({ carocellItem }) => {
-  const [listItem, setListItem] = useState([...carocellItem])
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [listItem, setListItem] = useState([...carocellItem]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const lastIndex = listItem.length - 1
+    const lastIndex = listItem.length - 1;
 
     if (currentIndex < 0) {
-      setCurrentIndex(lastIndex)
+      setCurrentIndex(lastIndex);
     }
 
     if (currentIndex > lastIndex) {
-      setCurrentIndex(0)
+      setCurrentIndex(0);
     }
-  }, [currentIndex, listItem])
+  }, [currentIndex, listItem]);
 
   //Auto slide to next slide in 3s
   useEffect(() => {
     let slider = setInterval(() => {
-      setCurrentIndex(currentIndex + 1)
-    }, 5000)
+      setCurrentIndex(currentIndex + 1);
+    }, 5000);
 
     //run one time after one
-    return () => clearInterval(slider)
-  }, [currentIndex])
+    return () => clearInterval(slider);
+  }, [currentIndex]);
 
   return (
     <VerticalSliderContainer>
-      <div className='slider-dot-container'>
+      <div className="slider-dot-container">
         {listItem &&
           listItem.map((x, index) => (
-            <div className={`dot ${currentIndex === index && 'active'}`} />
+            <div className={`dot ${currentIndex === index && "active"}`} />
           ))}
       </div>
 
       {listItem &&
         listItem.map((x, index) => {
-          const { id, title, tag, body, image } = x
+          const { id, title, tag, body, image } = x;
 
-          let position = 'nextSlideV'
+          let position = "nextSlideV";
           if (currentIndex === index) {
-            position = 'activeSlideV'
+            position = "activeSlideV";
           }
 
           if (
             currentIndex === index - 1 ||
             (index === 0 && currentIndex === listItem.length - 1)
           ) {
-            position = 'lastSlideV'
+            position = "lastSlideV";
           }
 
           return (
             <SliderCard className={position} key={id}>
-              <div className='inner-card'>
+              <div className="inner-card">
                 <span>{tag}</span>
                 <h1>{title}</h1>
                 <p>{body}</p>
-                <div className='login-btn'>login</div>
+                <div className="login-btn">login</div>
               </div>
-              <div className='banner-img'>
-                <img src={image} alt='banner' />
+              <div className="banner-img">
+                <img src={image} alt="banner" />
               </div>
             </SliderCard>
-          )
+          );
         })}
     </VerticalSliderContainer>
-  )
-}
+  );
+};
 
 const VerticalSliderContainer = styled.div`
   ${tw`
@@ -116,13 +116,15 @@ const VerticalSliderContainer = styled.div`
   }
 
   .lastSlideV {
+    opacity: 0;
     transform: translateX(-100%);
   }
 
   .nextSlideV {
+    opacity: 0;
     transform: translateX(100%);
   }
-`
+`;
 
 const SliderCard = styled.div`
   ${tw`
@@ -233,6 +235,6 @@ const SliderCard = styled.div`
       `}
     }
   }
-`
+`;
 
-export default VerticalSlider
+export default VerticalSlider;

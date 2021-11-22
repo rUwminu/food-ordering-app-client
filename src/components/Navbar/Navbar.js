@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import tw from 'twin.macro'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import tw from "twin.macro";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // Redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
+import { userLogout } from "../../redux/actions/userAction";
 
 // Util function
-import getFirstCharaterOfUsername from '../../utils/getFirstCharOfUsername'
+import getFirstCharaterOfUsername from "../../utils/getFirstCharOfUsername";
 
 // Material ui icons
 import {
@@ -17,100 +18,106 @@ import {
   AssignmentInd,
   ViewList,
   Logout,
-} from '@mui/icons-material'
+} from "@mui/icons-material";
 
 // Svg
-import LogoSvg from '../../assets/icons-svg/logo.svg'
+import LogoSvg from "../../assets/icons-svg/logo.svg";
 
 const Navbar = () => {
-  let lastScroll = 0
+  let lastScroll = 0;
+  const dispatch = useDispatch();
 
-  const [isLinkActive, setIsLinkActive] = useState('home')
-  const [isSearchActive, setIsSearchActive] = useState(false)
-  const [isActive, setIsActive] = useState(false)
-  const [isScrollTop, setIsScrollTop] = useState(true)
-  const [isMobile, setIsMobile] = useState()
-  const [isDropOption, setIsDropOption] = useState(false)
+  const [isLinkActive, setIsLinkActive] = useState("home");
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const [isScrollTop, setIsScrollTop] = useState(true);
+  const [isMobile, setIsMobile] = useState();
+  const [isDropOption, setIsDropOption] = useState(false);
 
-  const userSignIn = useSelector((state) => state.userSignIn)
-  const { user } = userSignIn
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { user } = userSignIn;
 
-  const orderList = useSelector((state) => state.orderList)
-  const { myCart } = orderList
+  const orderList = useSelector((state) => state.orderList);
+  const { myCart } = orderList;
 
   const handleResize = () => {
     if (window.innerWidth < 908) {
-      setIsMobile(true)
+      setIsMobile(true);
     } else {
-      setIsMobile(false)
+      setIsMobile(false);
     }
-  }
+  };
 
   const handleScroll = () => {
-    const currentTop = window.scrollY
+    const currentTop = window.scrollY;
 
     if (currentTop <= 0) {
-      setIsScrollTop(true)
+      setIsScrollTop(true);
     }
     if (currentTop > lastScroll) {
-      setIsScrollTop(false)
+      setIsScrollTop(false);
     }
 
-    lastScroll = currentTop
-  }
+    lastScroll = currentTop;
+  };
 
   useEffect(() => {
-    handleResize()
-    handleScroll()
-    window.addEventListener('resize', handleResize)
-    window.addEventListener('scroll', handleScroll)
-  }, [])
+    handleResize();
+    handleScroll();
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleLogout = () => {
+    setIsDropOption(false);
+    dispatch(userLogout());
+  };
 
   return (
     <NavContainer
       className={`${
-        isScrollTop ? 'py-6 bg-none' : 'py-[10px] bg-white shadow-md'
+        isScrollTop ? "py-6 bg-none" : "py-[10px] bg-white shadow-md"
       }`}
     >
-      <div className='inner-container'>
-        <div className='logo-container'>
-          <img src={LogoSvg} alt='' />
+      <div className="inner-container">
+        <div className="logo-container">
+          <img src={LogoSvg} alt="" />
           <h1>Foodie</h1>
         </div>
         {!isMobile && (
-          <div className='links-container'>
+          <div className="links-container">
             <Link
-              to='/'
-              onClick={() => setIsLinkActive('home')}
+              to="/food-ordering-app-client"
+              onClick={() => setIsLinkActive("home")}
               className={`links-items ${
-                isLinkActive === 'home' && 'text-dred'
+                isLinkActive === "home" && "text-dred"
               }`}
             >
               Home
             </Link>
             <Link
-              to='/'
-              onClick={() => setIsLinkActive('services')}
+              to="/food-ordering-app-client"
+              onClick={() => setIsLinkActive("services")}
               className={`links-items ${
-                isLinkActive === 'services' && 'text-dred'
+                isLinkActive === "services" && "text-dred"
               }`}
             >
               Services
             </Link>
             <Link
-              to='/'
-              onClick={() => setIsLinkActive('menu')}
+              to="/food-ordering-app-client"
+              onClick={() => setIsLinkActive("menu")}
               className={`links-items ${
-                isLinkActive === 'menu' && 'text-dred'
+                isLinkActive === "menu" && "text-dred"
               }`}
             >
               Menu
             </Link>
             <Link
-              to='info/type?name=about'
-              onClick={() => setIsLinkActive('contact')}
+              to="info/type?name=about"
+              onClick={() => setIsLinkActive("contact")}
               className={`links-items ${
-                isLinkActive === 'contact' && 'text-dred'
+                isLinkActive === "contact" && "text-dred"
               }`}
             >
               About us
@@ -120,109 +127,106 @@ const Navbar = () => {
         {isMobile && (
           <AbsoluteNav
             className={`${
-              isActive ? 'translate-x-0 shadow-md' : 'translate-x-full'
+              isActive ? "translate-x-0 shadow-md" : "translate-x-full"
             }`}
           >
             <Link
-              to={`/`}
-              className={`nav-link ${isLinkActive === 'home' && 'text-dred'}`}
+              to={`/food-ordering-app-client`}
+              className={`nav-link ${isLinkActive === "home" && "text-dred"}`}
             >
               Home
             </Link>
             <Link
-              to={`/`}
+              to={`/food-ordering-app-client`}
               className={`nav-link ${
-                isLinkActive === 'services' && 'text-dred'
+                isLinkActive === "services" && "text-dred"
               }`}
             >
               Services
             </Link>
             <Link
-              to={`/`}
-              className={`nav-link ${isLinkActive === 'menu' && 'text-dred'}`}
+              to={`/food-ordering-app-client`}
+              className={`nav-link ${isLinkActive === "menu" && "text-dred"}`}
             >
               Menu
             </Link>
             <Link
               to={`/`}
               className={`nav-link ${
-                isLinkActive === 'contact' && 'text-dred'
+                isLinkActive === "contact" && "text-dred"
               }`}
             >
               Contact
             </Link>
           </AbsoluteNav>
         )}
-        <div className='function-btn-container'>
-          <div className='search-box'>
+        <div className="function-btn-container">
+          <div className="search-box">
             <input
-              type='text'
+              type="text"
               className={`${
-                isSearchActive ? 'w-44 opacity-100' : 'w-0 p-0 opacity-0'
+                isSearchActive ? "w-44 opacity-100" : "w-0 p-0 opacity-0"
               }`}
             />
             <Search
               onClick={() => setIsSearchActive(!isSearchActive)}
-              className={`icon-style ${isSearchActive && 'search-active'}`}
+              className={`icon-style ${isSearchActive && "search-active"}`}
             />
           </div>
-          <Link to='cart' className='cart-box'>
+          <Link to="/food-ordering-app-client/cart" className="cart-box">
             <ShoppingCart
-              className={`icon-style ${isMobile && isSearchActive && 'hidden'}`}
+              className={`icon-style ${isMobile && isSearchActive && "hidden"}`}
             />
-            {myCart.length > 0 && <span className='red-dot'>&nbsp;</span>}
+            {myCart.length > 0 && <span className="red-dot">&nbsp;</span>}
           </Link>
           {user ? (
-            <div className='user-box'>
-              <div className='user-logo'>
+            <div className="user-box">
+              <div className="user-logo">
                 {getFirstCharaterOfUsername(user.username)}
               </div>
               <h1>{user.username}</h1>
               <KeyboardArrowDown
                 onClick={() => setIsDropOption(!isDropOption)}
-                className={`more-btn ${isDropOption && 'active'}`}
+                className={`more-btn ${isDropOption && "active"}`}
               />
               <div
                 onMouseLeave={() => setIsDropOption(false)}
-                className={`drop-option-list ${isDropOption && 'active'}`}
+                className={`drop-option-list ${isDropOption && "active"}`}
               >
                 <h1>Option</h1>
                 <Link
-                  to='/user/type?name=profile'
+                  to="/food-ordering-app-client/user/type?name=profile"
                   onClick={() => setIsDropOption(false)}
-                  className='option-item'
+                  className="option-item"
                 >
                   <span>My Profile</span>
-                  <AssignmentInd className='option-icon' />
+                  <AssignmentInd className="option-icon" />
                 </Link>
                 <Link
-                  to='/user/type?name=order'
+                  to="/food-ordering-app-client/user/type?name=order"
                   onClick={() => setIsDropOption(false)}
-                  className='option-item'
+                  className="option-item"
                 >
                   <span>My Order</span>
-                  <ViewList className='option-icon' />
+                  <ViewList className="option-icon" />
                 </Link>
-                <Link
-                  to='/login'
-                  onClick={() => setIsDropOption(false)}
-                  className='option-item'
-                >
+                <div onClick={() => handleLogout()} className="option-item">
                   <span>Logout</span>
-                  <Logout className='option-icon' />
-                </Link>
+                  <Logout className="option-icon" />
+                </div>
               </div>
             </div>
           ) : (
-            <div
-              className={`login-btn ${isMobile && isSearchActive && 'hidden'}`}
+            <Link
+              to="/food-ordering-app-client/login"
+              className={`login-btn ${isMobile && isSearchActive && "hidden"}`}
             >
               Login
-            </div>
+            </Link>
           )}
           {isMobile && (
             <Burger
-              className={`${isActive && 'line-active'}`}
+              className={`${isActive && "line-active"}`}
               onClick={() => setIsActive(!isActive)}
             >
               <div className={`line-1`} />
@@ -233,8 +237,8 @@ const Navbar = () => {
         </div>
       </div>
     </NavContainer>
-  )
-}
+  );
+};
 
 const NavContainer = styled.div`
   ${tw`
@@ -564,7 +568,7 @@ const NavContainer = styled.div`
       transform: rotate(45deg) translate(-5px, -5px);
     }
   }
-`
+`;
 
 const Burger = styled.div`
   ${tw`
@@ -596,7 +600,7 @@ const Burger = styled.div`
       ease-in-out
     `}
   }
-`
+`;
 
 const AbsoluteNav = styled.div`
   ${tw`
@@ -634,6 +638,6 @@ const AbsoluteNav = styled.div`
         ease-in-out
       `}
   }
-`
+`;
 
-export default Navbar
+export default Navbar;

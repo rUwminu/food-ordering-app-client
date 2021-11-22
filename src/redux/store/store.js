@@ -17,7 +17,7 @@ const decodeLocalUser = () => {
     const userInfo = JSON.parse(localStorage.getItem("user"));
 
     // decode user jwt token to check expiry date
-    //const decodeToken = jwtDecode(userInfo.token);
+    // const decodeToken = jwtDecode(userInfo.token);
 
     // if (decodeToken.exp * 1000 < Date.now()) {
     //   localStorage.removeItem("user");
@@ -31,7 +31,7 @@ const decodeLocalUser = () => {
 
 const initialState = {
   userSignIn: {
-    user: decodeLocalUser(),
+    user: decodeLocalUser() || null,
   },
   addressDetail: {
     address: JSON.parse(localStorage.getItem("address")),

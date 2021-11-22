@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import tw from 'twin.macro'
-import styled from 'styled-components'
-import { Link, useSearchParams } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import tw from "twin.macro";
+import styled from "styled-components";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 //import { removeItemFromCart } from "../../redux/actions/orderAction";
 
 // Form Components
-import { MyProfile, MyAddressBook, MyOrder } from '../../components/index'
+import { MyProfile, MyAddressBook, MyOrder } from "../../components/index";
 
 // Material ui icons
 import {
@@ -16,83 +16,89 @@ import {
   AssignmentInd,
   ViewList,
   Room,
-} from '@mui/icons-material'
+} from "@mui/icons-material";
 
 const Setting = () => {
-  const [isMobile, setIsMobile] = useState()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const name = searchParams.get('name')
+  const navigate = useNavigate();
 
-  const [optionType, setOptionType] = useState('profile')
+  const [isMobile, setIsMobile] = useState();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const name = searchParams.get("name");
+
+  const [optionType, setOptionType] = useState("profile");
+
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { user } = userSignIn;
 
   const handleResize = () => {
     if (window.innerWidth < 624) {
-      setIsMobile(true)
+      setIsMobile(true);
     } else {
-      setIsMobile(false)
+      setIsMobile(false);
     }
-  }
+  };
 
   useEffect(() => {
-    if (name) setOptionType(name)
-  }, [name])
+    if (!user) navigate("/food-ordering-app-client");
+    if (name) setOptionType(name);
+  }, [name, user]);
 
   useEffect(() => {
-    handleResize()
-    window.addEventListener('resize', handleResize)
-  }, [])
+    handleResize();
+    window.addEventListener("resize", handleResize);
+  }, []);
 
   return (
     <MainContainer>
-      <div className='inner-container'>
+      <div className="inner-container">
         <SideBarContainer
-          className={`${isMobile ? 'w-20' : 'w-48 min-w-[12rem]'}`}
+          className={`${isMobile ? "w-20" : "w-48 min-w-[12rem]"}`}
         >
           <Link
-            to='/user/type?name=profile'
-            className={`option-item ${optionType === 'profile' && 'active'} ${
-              isMobile && 'icon-box'
+            to="/food-ordering-app-client/user/type?name=profile"
+            className={`option-item ${optionType === "profile" && "active"} ${
+              isMobile && "icon-box"
             }`}
           >
-            <AssignmentInd className='option-icon' />
-            <h2 className={`${isMobile ? 'hidden' : 'inline-flex'}`}>
+            <AssignmentInd className="option-icon" />
+            <h2 className={`${isMobile ? "hidden" : "inline-flex"}`}>
               My Profile
             </h2>
           </Link>
 
           <Link
-            to='/user/type?name=address'
-            className={`option-item ${optionType === 'address' && 'active'} ${
-              isMobile && 'icon-box'
+            to="/food-ordering-app-client/user/type?name=address"
+            className={`option-item ${optionType === "address" && "active"} ${
+              isMobile && "icon-box"
             }`}
           >
-            <Room className='option-icon' />
-            <h2 className={`${isMobile ? 'hidden' : 'inline-flex'}`}>
+            <Room className="option-icon" />
+            <h2 className={`${isMobile ? "hidden" : "inline-flex"}`}>
               My Address Book
             </h2>
           </Link>
 
           <Link
-            to='/user/type?name=order'
-            className={`option-item ${optionType === 'order' && 'active'} ${
-              isMobile && 'icon-box'
+            to="/food-ordering-app-client/user/type?name=order"
+            className={`option-item ${optionType === "order" && "active"} ${
+              isMobile && "icon-box"
             }`}
           >
-            <ViewList className='option-icon' />
-            <h2 className={`${isMobile ? 'hidden' : 'inline-flex'}`}>
+            <ViewList className="option-icon" />
+            <h2 className={`${isMobile ? "hidden" : "inline-flex"}`}>
               My Order
             </h2>
           </Link>
         </SideBarContainer>
         <FormContainer>
-          {optionType === 'profile' && <MyProfile />}
-          {optionType === 'address' && <MyAddressBook />}
-          {optionType === 'order' && <MyOrder />}
+          {optionType === "profile" && <MyProfile />}
+          {optionType === "address" && <MyAddressBook />}
+          {optionType === "order" && <MyOrder />}
         </FormContainer>
       </div>
     </MainContainer>
-  )
-}
+  );
+};
 
 const MainContainer = styled.div`
   ${tw`
@@ -115,11 +121,12 @@ const MainContainer = styled.div`
         max-w-6xl
     `}
   }
-`
+`;
 
 const SideBarContainer = styled.div`
   ${tw`
-    mr-8
+    mr-4
+    md:mr-8
     h-screen
 
     transition-all
@@ -185,12 +192,12 @@ const SideBarContainer = styled.div`
       `}
     }
   }
-`
+`;
 
 const FormContainer = styled.div`
   ${tw`
+    w-full
     flex
-    flex-grow
     flex-col
     items-start
     justify-start
@@ -206,6 +213,6 @@ const FormContainer = styled.div`
 
     overflow-x-hidden
   `}
-`
+`;
 
-export default Setting
+export default Setting;

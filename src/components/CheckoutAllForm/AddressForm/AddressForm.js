@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from 'react'
-import tw from 'twin.macro'
-import styled from 'styled-components'
+import React, { useState, useEffect } from "react";
+import tw from "twin.macro";
+import styled from "styled-components";
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux'
-import { userAddAddress } from '../../../redux/actions/userAction'
-import { useSearchParams } from 'react-router-dom'
+import { useSelector, useDispatch } from "react-redux";
+import { userAddAddress } from "../../../redux/actions/userAction";
+import { useSearchParams } from "react-router-dom";
 
 const AddressForm = ({ setCurrentStep, currentStep }) => {
-  const dispatch = useDispatch()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const name = searchParams.get('name')
+  const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const name = searchParams.get("name");
 
-  const userSignIn = useSelector((state) => state.userSignIn)
-  const { user } = userSignIn
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { user } = userSignIn;
 
-  const addressDetail = useSelector((state) => state.addressDetail)
-  const { address } = addressDetail
+  const addressDetail = useSelector((state) => state.addressDetail);
+  const { address } = addressDetail;
 
   const addressState = {
-    name: '',
-    phoneNum: '',
-    state: '',
-    street: '',
-    postalCode: '',
-  }
-  const [addressInput, setAddressInput] = useState(addressState)
+    name: "",
+    phoneNum: "",
+    state: "",
+    street: "",
+    postalCode: "",
+  };
+  const [addressInput, setAddressInput] = useState(addressState);
 
   useEffect(() => {
     if (user && address) {
@@ -36,102 +36,102 @@ const AddressForm = ({ setCurrentStep, currentStep }) => {
         state: address.state,
         street: address.street,
         postalCode: address.postalCode,
-      })
-    } else {
+      });
+    } else if (!user) {
       setAddressInput({
         ...addressInput,
-        name: user.username,
-        phoneNum: user.phoneNum,
-        state: '',
-        street: '',
-        postalCode: '',
-      })
+        name: "",
+        phoneNum: "",
+        state: "",
+        street: "",
+        postalCode: "",
+      });
     }
-  }, [user, address])
+  }, [user, address]);
 
   const handleAddAddress = () => {
     if (
-      addressInput.name !== '' &&
-      addressInput.phoneNum !== '' &&
-      addressInput.state !== '' &&
-      addressInput.street !== '' &&
-      addressInput.postalCode !== ''
+      addressInput.name !== "" &&
+      addressInput.phoneNum !== "" &&
+      addressInput.state !== "" &&
+      addressInput.street !== "" &&
+      addressInput.postalCode !== ""
     ) {
-      dispatch(userAddAddress(addressInput))
+      dispatch(userAddAddress(addressInput));
 
-      if (!name) setCurrentStep(currentStep + 1)
+      if (!name) setCurrentStep(currentStep + 1);
     }
-  }
+  };
 
   return (
     <MainContainer>
       <h1>Shipping Address</h1>
-      <div className='address-box'>
-        <div className='input-items'>
+      <div className="address-box">
+        <div className="input-items">
           <input
             value={addressInput.state}
             onChange={(e) =>
               setAddressInput({ ...addressInput, state: e.target.value })
             }
-            type='text'
+            type="text"
             required
           />
           <span>State</span>
         </div>
-        <div className='input-items'>
+        <div className="input-items">
           <input
             value={addressInput.street}
             onChange={(e) =>
               setAddressInput({ ...addressInput, street: e.target.value })
             }
-            type='text'
+            type="text"
             required
           />
           <span>Street</span>
         </div>
-        <div className='input-items'>
+        <div className="input-items">
           <input
             value={addressInput.postalCode}
             onChange={(e) =>
               setAddressInput({ ...addressInput, postalCode: e.target.value })
             }
-            type='text'
+            type="text"
             required
           />
           <span>Postal Code</span>
         </div>
       </div>
       <h1>User Information</h1>
-      <div className='user-box'>
-        <div className='input-items inactive'>
+      <div className="user-box">
+        <div className="input-items inactive">
           <input
             onChange={(e) => {
-              setAddressInput({ ...addressInput, name: e.target.value })
+              setAddressInput({ ...addressInput, name: e.target.value });
             }}
-            type='text'
+            type="text"
             value={addressInput.name}
             required
           />
           <span>Recipient Name</span>
         </div>
-        <div className='input-items inactive'>
+        <div className="input-items inactive">
           <input
             onChange={(e) =>
               setAddressInput({ ...addressInput, phoneNum: e.target.value })
             }
-            type='text'
+            type="text"
             value={addressInput.phoneNum}
             required
           />
           <span>Phone Number</span>
         </div>
       </div>
-      <div onClick={() => handleAddAddress()} className='confirm-btn'>
+      <div onClick={() => handleAddAddress()} className="confirm-btn">
         Confirm
       </div>
     </MainContainer>
-  )
-}
+  );
+};
 
 const MainContainer = styled.div`
   ${tw`
@@ -246,6 +246,6 @@ const MainContainer = styled.div`
       `}
     }
   }
-`
+`;
 
-export default AddressForm
+export default AddressForm;

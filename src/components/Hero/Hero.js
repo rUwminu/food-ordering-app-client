@@ -41,7 +41,7 @@ const HeroSection = styled.div`
     px-4
     lg:px-0
     pt-20
-    md:pt-0
+    md:pt-24
     pb-16
     mx-auto
     h-full
@@ -178,6 +178,9 @@ const HeroSection = styled.div`
   .hero-img {
     ${tw`
       w-full
+      flex
+      items-center
+      justify-center
     `}
 
     img {
