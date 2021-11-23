@@ -20,7 +20,7 @@ const MyOrder = () => {
     <MainContainer>
       <h1 className="form-title">My Order</h1>
       <div className="order-list-container">
-        {allOrderlist &&
+        {allOrderlist.length !== 0 ? (
           allOrderlist.map((x) => {
             const {
               id,
@@ -62,7 +62,14 @@ const MyOrder = () => {
                 </div>
               </div>
             );
-          })}
+          })
+        ) : (
+          <div className="order-empty">
+            <h2>
+              Not Hungry? <span>Order Here!</span>
+            </h2>
+          </div>
+        )}
       </div>
     </MainContainer>
   );
@@ -210,6 +217,23 @@ const MainContainer = styled.div`
         ${tw`
           bg-green-600
         `}
+      }
+    }
+
+    .order-empty {
+      h2 {
+        ${tw`
+          text-lg
+          text-gray-700
+        `}
+
+        span {
+          ${tw`
+            text-b-orange
+            font-semibold
+            cursor-pointer
+          `}
+        }
       }
     }
   }

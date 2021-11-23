@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { Link as ButtonLink, Element } from "react-scroll";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -162,19 +163,28 @@ const SingleRes = () => {
             <h1 className="box-title">Categories</h1>
             {typeCategory &&
               typeCategory.map((x) => (
-                <div className="type-item">{x.name}</div>
+                <ButtonLink
+                  to={`${x.name}`}
+                  className="type-item"
+                  spy={true}
+                  smooth={true}
+                  containerId="containerElement"
+                  offset={-50}
+                >
+                  {x.name}
+                </ButtonLink>
               ))}
           </div>
-          <div className="recipe-box">
+          <Element className="recipe-box" id="containerElement">
             <h1 className="box-title">Quisine</h1>
             {typeCategory &&
-              typeCategory.map((x) => (
-                <div className="cate-list">
-                  <h1>{x.name}</h1>
+              typeCategory.map((x, index) => (
+                <Element name={x.name} key={index} className="cate-list">
+                  <h1 className="h1">{x.name}</h1>
                   {filterTypeRecipes(x.name)}
-                </div>
+                </Element>
               ))}
-          </div>
+          </Element>
           <div className="cart-box">
             <Cart />
           </div>
@@ -418,6 +428,7 @@ const BottomContainer = styled.div`
     .recipe-box {
       ${tw`
         relative
+        pb-[30rem]
         h-[45rem]
         min-h-[45rem]
         sm:mx-3
@@ -450,7 +461,7 @@ const BottomContainer = styled.div`
           justify-start
         `}
 
-        h1 {
+        .h1 {
           ${tw`
             mb-3
             py-3

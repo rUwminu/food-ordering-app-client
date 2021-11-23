@@ -14,7 +14,7 @@ import { Room } from "@mui/icons-material";
 
 const Restaurant = () => {
   const dispatch = useDispatch();
-  const [resAllList, setResAllList] = useState();
+  const [resAllList, setResAllList] = useState([]);
   const [stateFilter, setStateFilter] = useState("All");
   const [reducedTag, setReducedTag] = useState();
 
@@ -22,7 +22,7 @@ const Restaurant = () => {
   const { allRes, loading, error } = resList;
 
   const getResTypeState = () => {
-    const typeState = allRes.reduce((total, item) => {
+    const typeState = resAllList.reduce((total, item) => {
       const { state } = item;
 
       if (!state) return total;
@@ -52,19 +52,22 @@ const Restaurant = () => {
   }, [stateFilter]);
 
   useEffect(() => {
-    if (allRes) {
+    if (allRes && !resAllList) {
       let random = allRes.sort(() => 0.5 - Math.random()).slice(0, 3);
 
-      getResTypeState();
       setResAllList(random);
     }
-  }, [allRes]);
+
+    if (resAllList && resAllList.length > 0) {
+      getResTypeState();
+    }
+  }, [allRes, resAllList]);
 
   //console.log(allRes)
   //console.log(reducedTag)
 
   return (
-    <ResContainer>
+    <ResContainer id="feature">
       <h1 className="title">Popular Restaurant</h1>
       <p className="title-info">
         Popular this month. Top restaurants, cafes, pubs, and bars in and around

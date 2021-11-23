@@ -8,6 +8,8 @@ import {
   OrderCart,
   Login,
   Setting,
+  Menu,
+  MenuCate,
 } from "./pages/index";
 // Components
 import { Navbar, Footer } from "./components/index";
@@ -25,6 +27,12 @@ function App() {
       </Routes>
       <Routes>
         <Route path={`${baseUrl}/info/type`} element={<Info />} />
+      </Routes>
+      <Routes>
+        <Route path={`${baseUrl}/menu`} element={<Menu />} />
+      </Routes>
+      <Routes>
+        <Route path={`${baseUrl}/menu/type`} element={<MenuCate />} />
       </Routes>
       <Routes>
         <Route path={`${baseUrl}/restaurant/:id`} element={<SingleRes />} />

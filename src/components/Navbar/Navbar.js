@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { Link as NavLink, Button } from "react-scroll";
+
+import * as Scroll from "react-scroll";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -75,9 +78,7 @@ const Navbar = () => {
 
   return (
     <NavContainer
-      className={`${
-        isScrollTop ? "py-6 bg-none" : "py-[10px] bg-white shadow-md"
-      }`}
+      className={`${isScrollTop ? "py-6" : "py-[10px] bg-white shadow-md"}`}
     >
       <div className="inner-container">
         <div className="logo-container">
@@ -95,17 +96,19 @@ const Navbar = () => {
             >
               Home
             </Link>
-            <Link
-              to="/food-ordering-app-client"
+            <NavLink
+              to="feature"
+              smooth={true}
+              offset={isMobile ? 50 : -70}
               onClick={() => setIsLinkActive("services")}
               className={`links-items ${
                 isLinkActive === "services" && "text-dred"
               }`}
             >
-              Services
-            </Link>
+              Feature
+            </NavLink>
             <Link
-              to="/food-ordering-app-client"
+              to="/food-ordering-app-client/menu"
               onClick={() => setIsLinkActive("menu")}
               className={`links-items ${
                 isLinkActive === "menu" && "text-dred"
@@ -132,26 +135,32 @@ const Navbar = () => {
           >
             <Link
               to={`/food-ordering-app-client`}
+              onClick={() => setIsActive(false)}
               className={`nav-link ${isLinkActive === "home" && "text-dred"}`}
             >
               Home
             </Link>
-            <Link
-              to={`/food-ordering-app-client`}
+            <NavLink
+              to="feature"
+              smooth={true}
+              offset={isMobile ? -50 : -70}
+              onClick={() => setIsActive(false)}
               className={`nav-link ${
                 isLinkActive === "services" && "text-dred"
               }`}
             >
-              Services
-            </Link>
+              Feature
+            </NavLink>
             <Link
               to={`/food-ordering-app-client`}
+              onClick={() => setIsActive(false)}
               className={`nav-link ${isLinkActive === "menu" && "text-dred"}`}
             >
               Menu
             </Link>
             <Link
-              to={`/`}
+              to={`/food-ordering-app-client`}
+              onClick={() => setIsActive(false)}
               className={`nav-link ${
                 isLinkActive === "contact" && "text-dred"
               }`}
@@ -241,6 +250,12 @@ const Navbar = () => {
 };
 
 const NavContainer = styled.div`
+  background-image: linear-gradient(
+    to bottom,
+    rgba(249, 250, 251, 0.75),
+    rgba(0, 0, 0, 0)
+  );
+
   ${tw`
     fixed
     top-0
