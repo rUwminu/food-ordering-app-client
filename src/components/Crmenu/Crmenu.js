@@ -1,193 +1,193 @@
-import React, { useState, useEffect } from 'react'
-import tw from 'twin.macro'
-import styled from 'styled-components'
+import React, { useState, useEffect } from "react";
+import tw from "twin.macro";
+import styled from "styled-components";
 
 //Icon Svg
-import PizzaIcon from '../../assets/icons-svg/pizza.svg'
-import BurgerIcon from '../../assets/icons-svg/burger.svg'
-import RiceIcon from '../../assets/icons-svg/ricebowl.svg'
-import DonutIcon from '../../assets/icons-svg/donat.svg'
-import IcecreamIcon from '../../assets/icons-svg/icecream.svg'
+import PizzaIcon from "../../assets/icons-svg/pizza.svg";
+import BurgerIcon from "../../assets/icons-svg/burger.svg";
+import RiceIcon from "../../assets/icons-svg/ricebowl.svg";
+import DonutIcon from "../../assets/icons-svg/donat.svg";
+import IcecreamIcon from "../../assets/icons-svg/icecream.svg";
 
 //Carocell Image
-import BurgerCs from '../../assets/svg/burgerCs.svg'
+import BurgerCs from "../../assets/svg/burgerCs.svg";
 
 //Components
-import HorizonSlider from './Slider/HorizonSlider'
+import HorizonSlider from "./Slider/HorizonSlider";
 
 const menuData = [
   {
     id: 1,
-    title: 'Pizza',
+    title: "Pizza",
     icon: PizzaIcon,
     carocellItem: [
       {
         id: 1,
-        title: 'Delivery in just 30 minutes',
-        tag: 'Fastes Food Delivery Services',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Delivery in just 30 minutes",
+        tag: "Fastes Food Delivery Services",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
       {
         id: 2,
-        title: 'Favour in different variety',
-        tag: 'Most Widest Favour Pick Ordering App',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Favour in different variety",
+        tag: "Most Widest Favour Pick Ordering App",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
       {
         id: 3,
-        title: 'Refund order on late and untasty',
-        tag: 'Money Back Guarantee',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Refund order on late and untasty",
+        tag: "Money Back Guarantee",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
     ],
   },
   {
     id: 2,
-    title: 'Fast Food',
+    title: "Fast Food",
     icon: BurgerIcon,
     carocellItem: [
       {
         id: 1,
-        title: 'Delivery in just 30 minutes',
-        tag: 'Fastes Food Delivery Services',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Delivery in just 30 minutes",
+        tag: "Fastes Food Delivery Services",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
       {
         id: 2,
-        title: 'Delivery in just 30 minutes',
-        tag: 'Fastes Food Delivery Services',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Delivery in just 30 minutes",
+        tag: "Fastes Food Delivery Services",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
       {
         id: 3,
-        title: 'Delivery in just 30 minutes',
-        tag: 'Fastes Food Delivery Services',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Delivery in just 30 minutes",
+        tag: "Fastes Food Delivery Services",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
     ],
   },
   {
     id: 3,
-    title: 'Asian Dish',
+    title: "Asian Dish",
     icon: RiceIcon,
     carocellItem: [
       {
         id: 1,
-        title: 'Delivery in just 30 minutes',
-        tag: 'Fastes Food Delivery Services',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Delivery in just 30 minutes",
+        tag: "Fastes Food Delivery Services",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
       {
         id: 2,
-        title: 'Delivery in just 30 minutes',
-        tag: 'Fastes Food Delivery Services',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Delivery in just 30 minutes",
+        tag: "Fastes Food Delivery Services",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
       {
         id: 3,
-        title: 'Delivery in just 30 minutes',
-        tag: 'Fastes Food Delivery Services',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Delivery in just 30 minutes",
+        tag: "Fastes Food Delivery Services",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
     ],
   },
   {
     id: 4,
-    title: 'Dessert',
+    title: "Dessert",
     icon: DonutIcon,
     carocellItem: [
       {
         id: 1,
-        title: 'Delivery in just 30 minutes',
-        tag: 'Fastes Food Delivery Services',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Delivery in just 30 minutes",
+        tag: "Fastes Food Delivery Services",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
       {
         id: 2,
-        title: 'Delivery in just 30 minutes',
-        tag: 'Fastes Food Delivery Services',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Delivery in just 30 minutes",
+        tag: "Fastes Food Delivery Services",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
       {
         id: 3,
-        title: 'Delivery in just 30 minutes',
-        tag: 'Fastes Food Delivery Services',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Delivery in just 30 minutes",
+        tag: "Fastes Food Delivery Services",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
     ],
   },
   {
     id: 5,
-    title: 'Ice-cream',
+    title: "Ice-cream",
     icon: IcecreamIcon,
     carocellItem: [
       {
         id: 1,
-        title: 'Delivery in just 30 minutes',
-        tag: 'Fastes Food Delivery Services',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Delivery in just 30 minutes",
+        tag: "Fastes Food Delivery Services",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
       {
         id: 2,
-        title: 'Delivery in just 30 minutes',
-        tag: 'Fastes Food Delivery Services',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Delivery in just 30 minutes",
+        tag: "Fastes Food Delivery Services",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
       {
         id: 3,
-        title: 'Delivery in just 30 minutes',
-        tag: 'Fastes Food Delivery Services',
-        body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.',
+        title: "Delivery in just 30 minutes",
+        tag: "Fastes Food Delivery Services",
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non curabitur gravida arcu ac.",
         image: BurgerCs,
       },
     ],
   },
-]
+];
 
 const Crmenu = () => {
-  const [menuList, setMenuList] = useState([])
-  const [isMenuItemActive, setIsMenuItemActive] = useState(0)
+  const [menuList, setMenuList] = useState([]);
+  const [isMenuItemActive, setIsMenuItemActive] = useState(0);
 
   useEffect(() => {
     if (menuData) {
-      setMenuList(menuData)
+      setMenuList(menuData);
     }
-  }, [menuData])
+  }, [menuData]);
 
   return (
     <MenuContainer>
-      <div className='select-type'>
+      <div className="select-type">
         {menuList &&
           menuList.map((x, index) => {
-            const { id, title, icon } = x
+            const { id, title, icon } = x;
             return (
               <div
                 key={id}
                 onClick={() => setIsMenuItemActive(index)}
                 className={`menu-items ${
-                  isMenuItemActive === index && 'active'
+                  isMenuItemActive === index && "active"
                 }`}
               >
-                <div className='img-box'>
-                  <img src={icon} alt='icon' />
+                <div className="img-box">
+                  <img src={icon} alt="icon" />
                 </div>
                 <h2>{title}</h2>
               </div>
-            )
+            );
           })}
       </div>
       {menuList && (
@@ -197,8 +197,8 @@ const Crmenu = () => {
         />
       )}
     </MenuContainer>
-  )
-}
+  );
+};
 
 const MenuContainer = styled.div`
   ${tw`
@@ -315,5 +315,5 @@ const MenuContainer = styled.div`
       `}
     }
   }
-`
-export default Crmenu
+`;
+export default Crmenu;

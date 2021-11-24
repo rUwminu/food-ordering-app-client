@@ -126,8 +126,10 @@ const MainContainer = styled.div`
 
     img {
       ${tw`
-        w-36
-        h-36
+        w-28
+        h-28
+        md:w-36
+        md:h-36
         object-cover
       `}
     }

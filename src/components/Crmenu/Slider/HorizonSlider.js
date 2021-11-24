@@ -1,50 +1,50 @@
-import React, { useState, useEffect } from 'react'
-import tw from 'twin.macro'
-import styled from 'styled-components'
+import React, { useState, useEffect } from "react";
+import tw from "twin.macro";
+import styled from "styled-components";
 
 // Components
-import VerticalSlider from './VerticalSlider'
+import VerticalSlider from "./VerticalSlider";
 
 const HorizonSlider = ({ listItem, isMenuItemActive }) => {
-  const [currentIndex, setCurrentIndex] = useState(isMenuItemActive)
+  const [currentIndex, setCurrentIndex] = useState(isMenuItemActive);
 
   useEffect(() => {
-    setCurrentIndex(isMenuItemActive)
-  }, [currentIndex, listItem, isMenuItemActive])
+    setCurrentIndex(isMenuItemActive);
+  }, [currentIndex, listItem, isMenuItemActive]);
 
   return (
     <SliderContainer>
       {listItem &&
         listItem.map((x, itemIndex) => {
-          const { id, carocellItem } = x
+          const { id, carocellItem } = x;
 
           //slide control
-          let position = 'nextSlide'
+          let position = "nextSlide";
           if (itemIndex === currentIndex) {
-            position = 'activeSlide'
+            position = "activeSlide";
           }
 
           if (
             itemIndex === currentIndex - 1 ||
             (currentIndex === 0 && itemIndex === listItem.length - 1)
           ) {
-            position = 'lastSlide'
+            position = "lastSlide";
           }
 
           return (
             <SliderCard key={id} className={position}>
               <VerticalSlider carocellItem={carocellItem} />
             </SliderCard>
-          )
+          );
         })}
     </SliderContainer>
-  )
-}
+  );
+};
 
 const SliderContainer = styled.div`
   ${tw`
     relative
-    min-h-[20rem]
+    min-h-[23rem]
     md:h-full
     w-full
     overflow-hidden
@@ -62,7 +62,7 @@ const SliderContainer = styled.div`
   .nextSlide {
     transform: translateY(100%);
   }
-`
+`;
 
 const SliderCard = styled.div`
   ${tw`
@@ -77,6 +77,6 @@ const SliderCard = styled.div`
     duration-200
     ease-in-out
   `}
-`
+`;
 
-export default HorizonSlider
+export default HorizonSlider;

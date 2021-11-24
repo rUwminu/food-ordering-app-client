@@ -201,8 +201,10 @@ const FormContainer = styled.div`
     flex-col
     items-start
     justify-start
-    py-10
-    px-8
+    py-5
+    sm:py-10
+    px-4
+    sm:px-8
     bg-white
     rounded-md
     shadow-md

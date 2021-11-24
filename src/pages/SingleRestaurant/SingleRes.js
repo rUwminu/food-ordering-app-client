@@ -93,7 +93,7 @@ const SingleRes = () => {
         <img src={x.image} alt="recipe" />
         <div className="recipe-info">
           <h2>{x.name}</h2>
-          <p>{getShortenBody(x.bio)}</p>
+          <p className="recipe-bio">{getShortenBody(x.bio)}</p>
           <div className="info-main">
             <p className="info-price">Price: RM{x.price.toFixed(2)}</p>
             <div onClick={() => handleAddItem(x.id)} className="info-add-btn">
@@ -578,6 +578,13 @@ const BottomContainer = styled.div`
               items-start
             `}
 
+            .recipe-bio {
+              ${tw`
+                hidden
+                md:inline-flex
+              `}
+            }
+
             h2 {
               ${tw`
                 md:text-lg
@@ -595,10 +602,12 @@ const BottomContainer = styled.div`
 
             .info-main {
               ${tw`
-                mt-auto
+                md:mt-auto
                 w-full
                 flex
-                items-center
+                flex-col
+                md:flex-row
+                md:items-center
                 justify-between
               `}
 
@@ -610,8 +619,14 @@ const BottomContainer = styled.div`
 
               .info-add-btn {
                 ${tw`
+                  mt-2
+                  md:mt-0
                   py-1
-                  px-4
+                  w-full
+                  max-w-[7rem]
+                  text-xs
+                  md:text-base
+                  text-center
                   font-semibold
                   text-gray-200
                   bg-b-orange
