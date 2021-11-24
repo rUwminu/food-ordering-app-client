@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+//redux f
+import { useSelector } from "react-redux";
 
 const VerticalSlider = ({ carocellItem }) => {
   const [listItem, setListItem] = useState([...carocellItem]);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { user } = userSignIn;
 
   useEffect(() => {
     const lastIndex = listItem.length - 1;
@@ -59,7 +66,14 @@ const VerticalSlider = ({ carocellItem }) => {
                 <span>{tag}</span>
                 <h1>{title}</h1>
                 <p>{body}</p>
-                <div className="login-btn">login</div>
+                {!user && (
+                  <Link
+                    to="/food-ordering-app-client/login"
+                    className="login-btn"
+                  >
+                    login
+                  </Link>
+                )}
               </div>
               <div className="banner-img">
                 <img src={image} alt="banner" />
