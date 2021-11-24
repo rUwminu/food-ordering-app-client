@@ -15,6 +15,7 @@ import { Room } from "@mui/icons-material";
 const Restaurant = () => {
   const dispatch = useDispatch();
   const [resAllList, setResAllList] = useState([]);
+  const [disResAllList, setDisResAllList] = useState([]);
   const [stateFilter, setStateFilter] = useState("All");
   const [reducedTag, setReducedTag] = useState();
 
@@ -44,18 +45,20 @@ const Restaurant = () => {
 
   useEffect(() => {
     if (stateFilter !== "All") {
-      const newList = allRes.filter((x) => x.state === stateFilter);
-      setResAllList(newList);
+      const newList = resAllList.filter((x) => x.state === stateFilter);
+      setDisResAllList(newList);
     } else {
-      setResAllList(allRes);
+      setDisResAllList(resAllList);
     }
   }, [stateFilter]);
 
   useEffect(() => {
-    if (allRes && !resAllList) {
+    // mock API return data, random pick 3 restaurants
+    if (allRes && resAllList.length === 0) {
       let random = allRes.sort(() => 0.5 - Math.random()).slice(0, 3);
 
       setResAllList(random);
+      setDisResAllList(random);
     }
 
     if (resAllList && resAllList.length > 0) {
@@ -64,7 +67,7 @@ const Restaurant = () => {
   }, [allRes, resAllList]);
 
   //console.log(allRes)
-  //console.log(reducedTag)
+  console.log(resAllList);
 
   return (
     <ResContainer id="feature">
@@ -95,8 +98,8 @@ const Restaurant = () => {
       )}
 
       <div className="res-container">
-        {resAllList &&
-          resAllList.map((x) => {
+        {disResAllList &&
+          disResAllList.map((x) => {
             const { id, image, name, state, location, deliveryTime, avgCost } =
               x;
 

@@ -47,6 +47,9 @@ const OrderCart = () => {
   const userSignIn = useSelector((state) => state.userSignIn);
   const { user } = userSignIn;
 
+  const orderList = useSelector((state) => state.orderList);
+  const { myCart } = orderList;
+
   useEffect(() => {
     if (user) {
       setCurrentStep(1);
@@ -58,31 +61,39 @@ const OrderCart = () => {
   return (
     <OrderCartContainer>
       <div className="inner-container">
-        <MultiStepForm>
-          <MultiStepProgressbar stepList={stepList} currentStep={currentStep} />
-          <div className="form-container">
-            {formArray &&
-              formArray.map((x, index) => {
-                let position = "nextSlide";
-                if (currentStep === index) {
-                  position = "activeSlide";
-                }
+        {myCart && myCart.length > 0 && (
+          <MultiStepForm>
+            <MultiStepProgressbar
+              stepList={stepList}
+              currentStep={currentStep}
+            />
+            <div className="form-container">
+              {formArray &&
+                formArray.map((x, index) => {
+                  let position = "nextSlide";
+                  if (currentStep === index) {
+                    position = "activeSlide";
+                  }
 
-                if (
-                  currentStep === index - 1 ||
-                  (index === 0 && currentStep === x.length - 1)
-                ) {
-                  position = "lastSlide";
-                }
+                  if (
+                    currentStep === index - 1 ||
+                    (index === 0 && currentStep === x.length - 1)
+                  ) {
+                    position = "lastSlide";
+                  }
 
-                return (
-                  <div key={index} className={`absolute-container ${position}`}>
-                    {x}
-                  </div>
-                );
-              })}
-          </div>
-        </MultiStepForm>
+                  return (
+                    <div
+                      key={index}
+                      className={`absolute-container ${position}`}
+                    >
+                      {x}
+                    </div>
+                  );
+                })}
+            </div>
+          </MultiStepForm>
+        )}
         <div className="cart-container">
           <Cart />
         </div>
@@ -109,11 +120,11 @@ const OrderCartContainer = styled.div`
       w-full
       max-w-6xl
       flex
-      flex-col
+      flex-col-reverse
       md:flex-row
       items-center
-      md:items-start
-      justify-start
+      md:items-center
+      justify-center
     `}
 
     .cart-container {

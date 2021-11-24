@@ -20,7 +20,7 @@ const MyOrder = () => {
     <MainContainer>
       <h1 className="form-title">My Order</h1>
       <div className="order-list-container">
-        {allOrderlist.length !== 0 ? (
+        {allOrderlist ? (
           allOrderlist.map((x) => {
             const {
               id,

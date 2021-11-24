@@ -31,10 +31,11 @@ const LoginForm = () => {
         const { password } = user;
 
         if (inputValue.password === "" || inputValue.password !== password) {
+          console.log("error");
           setIsError({ passwordError: "Invalid Password" });
+        } else {
+          dispatch(userSignInAccount(user));
         }
-
-        dispatch(userSignInAccount(user));
       }
     } catch (err) {
       setIsError({ error: "Server Error" });
@@ -63,7 +64,9 @@ const LoginForm = () => {
         />
         <span className="input-ph">Email</span>
       </div>
-
+      {isError && isError.emailError && (
+        <div className="error-msg">{isError.emailError}</div>
+      )}
       <div className="input-item">
         <input
           onChange={(e) =>
@@ -75,6 +78,9 @@ const LoginForm = () => {
         />
         <span className="input-ph">Password</span>
       </div>
+      {isError && isError.passwordError && (
+        <div className="error-msg">{isError.passwordError}</div>
+      )}
 
       <div onClick={() => handleLogin()} className="login-btn">
         Login
@@ -178,6 +184,13 @@ const MainContainer = styled.div`
         text-sm
       `}
     }
+  }
+
+  .error-msg {
+    ${tw`
+      text-red-500
+      font-semibold
+    `}
   }
 
   .login-btn {

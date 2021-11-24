@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Link as ButtonLink, Element } from "react-scroll";
 
 // Redux
@@ -24,11 +25,12 @@ import {
 } from "../../assets/restaurantData/resData";
 
 //Material ui Icons
-import { Room, Favorite, Share } from "@mui/icons-material";
+import { Room, Favorite, Share, ArrowBackIosNew } from "@mui/icons-material";
 
 const SingleRes = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [typeCategory, setTypeCategory] = useState();
@@ -108,50 +110,56 @@ const SingleRes = () => {
       <div className="top-container">
         {!resLoading && singleRes && (
           <div className="inner-container top-inner">
-            <div className="main-item">
-              <div className="img-box">
-                <img src={singleRes.image} />
-              </div>
-
-              <div className="info-box">
-                <h1>{singleRes.name}</h1>
-                <div className="location-box">
-                  <Room className="icon" />
-                  <span>
-                    {singleRes.location}, {singleRes.state}
-                  </span>
-                </div>
-                <div className="operation-box">
-                  <span>
-                    Restaurant Operating Time - {singleRes.openTime} to{" "}
-                    {singleRes.closeTime}
-                  </span>
-                </div>
-                <div className="general-box">
-                  <div className="general-item">
-                    <h2>{singleRes.deliveryTime} HOUR</h2>
-                    <span>Delivery Time</span>
-                  </div>
-                  <div className="general-item">
-                    <h2>PAYMENT</h2>
-                    <span>Online Payment</span>
-                  </div>
-                  <div className="general-item">
-                    <h2>${singleRes.avgCost.toFixed(2)}</h2>
-                    <span>Avg Cost</span>
-                  </div>
-                </div>
-              </div>
+            <div className="back-btn" onClick={() => navigate(-1)}>
+              <ArrowBackIosNew className="back-icon" />
+              Back
             </div>
-            <div className="share-box">
-              <div className="social-btn like-btn">
-                <Favorite />
-                Favorite
-              </div>
+            <div className="detail-container">
+              <div className="main-item">
+                <div className="img-box">
+                  <img src={singleRes.image} />
+                </div>
 
-              <div className="social-btn share-btn">
-                <Share />
-                Share
+                <div className="info-box">
+                  <h1>{singleRes.name}</h1>
+                  <div className="location-box">
+                    <Room className="icon" />
+                    <span>
+                      {singleRes.location}, {singleRes.state}
+                    </span>
+                  </div>
+                  <div className="operation-box">
+                    <span>
+                      Restaurant Operating Time - {singleRes.openTime} to{" "}
+                      {singleRes.closeTime}
+                    </span>
+                  </div>
+                  <div className="general-box">
+                    <div className="general-item">
+                      <h2>{singleRes.deliveryTime} HOUR</h2>
+                      <span>Delivery Time</span>
+                    </div>
+                    <div className="general-item">
+                      <h2>PAYMENT</h2>
+                      <span>Online Payment</span>
+                    </div>
+                    <div className="general-item">
+                      <h2>${singleRes.avgCost.toFixed(2)}</h2>
+                      <span>Avg Cost</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="share-box">
+                <div className="social-btn like-btn">
+                  <Favorite />
+                  Favorite
+                </div>
+
+                <div className="social-btn share-btn">
+                  <Share />
+                  Share
+                </div>
               </div>
             </div>
           </div>
@@ -215,7 +223,8 @@ const MainContainer = styled.div`
 
   .top-container {
     ${tw`
-      py-8
+      pt-6
+      pb-8
       w-full
       bg-b-orange
       bg-opacity-10
@@ -235,13 +244,64 @@ const MainContainer = styled.div`
 
   .top-inner {
     ${tw`
-      h-full
       flex
       flex-col
-      lg:flex-row
       items-start
-      justify-center
+      justify-start
     `}
+
+    .back-btn {
+      ${tw`
+        flex
+        items-center
+        mb-2
+        pr-5
+        pl-3
+        py-2
+        text-gray-700
+        font-semibold
+        rounded-md
+        cursor-pointer
+
+        transition-all
+        duration-200
+        ease-in-out
+      `}
+
+      .back-icon {
+        ${tw`
+          mr-1
+
+          transition-all
+          duration-200
+          ease-in-out
+        `}
+      }
+
+      :hover {
+        ${tw`
+          bg-b-orange
+          bg-opacity-20
+        `}
+
+        .back-icon {
+          ${tw`
+            -ml-1
+          `}
+        }
+      }
+    }
+
+    .detail-container {
+      ${tw`
+        w-full
+        flex
+        flex-col
+        lg:flex-row
+        items-start
+        justify-center
+      `}
+    }
 
     .main-item {
       ${tw`
@@ -357,7 +417,19 @@ const MainContainer = styled.div`
           border
           border-gray-400
           text-gray-400
+          cursor-pointer
+
+          transition
+          duration-200
+          ease-in-out
         `}
+
+        :hover {
+          ${tw`
+            bg-gray-100
+            text-gray-600
+          `}
+        }
       }
     }
   }

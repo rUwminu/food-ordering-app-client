@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { Link as NavLink } from "react-scroll";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +15,11 @@ import { restaurantData } from "../../assets/restaurantData/resData";
 import { Room } from "@mui/icons-material";
 // banner image
 import MenuBanner from "../../assets/banner-img/menubanner.jpg";
+import Halal from "../../assets/food/r1/beefschnitzel.jpg";
+import NonHalal from "../../assets/food/r1/taco.jpg";
+import Chinese from "../../assets/food/r1/noodles.jpg";
+import Europe from "../../assets/food/r1/beefpancakes.jpg";
+import Desert from "../../assets/food/r3/malteser.jpeg";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -40,6 +46,28 @@ const Menu = () => {
     }, {});
 
     setQuisinType(Object.values(reduceType));
+  };
+
+  const returnQuisineImgType = (type) => {
+    switch (type) {
+      case "Halal":
+        return Halal;
+        break;
+      case "Non-Halal":
+        return NonHalal;
+        break;
+      case "Chinese":
+        return Chinese;
+        break;
+      case "Europe":
+        return Europe;
+        break;
+      case "Desert":
+        return Desert;
+        break;
+      default:
+        break;
+    }
   };
 
   useEffect(() => {
@@ -72,11 +100,19 @@ const Menu = () => {
             <br /> Own Menu
             <br /> Here.
           </h1>
-          <div className="feature-btn">Feature Restaurant</div>
+          <NavLink
+            to="feature"
+            className="feature-btn"
+            spy={true}
+            smooth={true}
+            offset={-100}
+          >
+            Feature Restaurant
+          </NavLink>
         </IntroCard>
-        <PickContainer>
+        <PickContainer id="feature">
           <h1>
-            Here Own Random <span>Top Pick</span>
+            Here Our Random <span>Top Pick</span>
           </h1>
           <div className="feature-box">
             {resRandomList &&
@@ -120,10 +156,17 @@ const Menu = () => {
           <div className="category-box">
             {quisineType &&
               quisineType.map((x, index) => (
-                <div key={index} className="cate-card">
-                  <img src="" alt="cate-bg" />
+                <Link
+                  to={`/food-ordering-app-client/menu/type?name=${x.value}`}
+                  key={index}
+                  className="cate-card"
+                >
+                  <div className="cate-img">
+                    <img src={returnQuisineImgType(x.value)} alt="cate-bg" />
+                  </div>
+
                   <h2>{x.value}</h2>
-                </div>
+                </Link>
               ))}
           </div>
         </CategoryContainer>
@@ -162,11 +205,13 @@ const MainContainer = styled.div`
 
 const IntroCard = styled.div`
   ${tw`
+    flex
+    flex-col
     py-8
     px-6
     -mt-56
     md:-mt-60
-    h-[24rem]
+    h-[22rem]
     w-full
     md:max-w-sm
     bg-gray-50
@@ -194,23 +239,35 @@ const IntroCard = styled.div`
   .feature-btn {
     ${tw`
       mt-8
-      w-full
-      py-3
+      py-2
+      px-4
       text-lg
       md:text-xl
-      text-center
       font-semibold
       bg-b-orange
       text-gray-50
       shadow-md
       rounded-md
+      cursor-pointer
+
+      transition
+      duration-200
+      ease-in-out
     `}
+
+    :hover {
+      ${tw`
+        bg-opacity-90
+        shadow-md
+      `}
+    }
   }
 `;
 
 const PickContainer = styled.div`
   ${tw`
     mt-10
+    mb-8
     w-full
   `}
 
@@ -232,10 +289,11 @@ const PickContainer = styled.div`
   .feature-box {
     ${tw`  
       w-full
-      flex
-      flex-wrap
-      items-center
-      justify-between
+      grid 
+      grid-cols-2
+      md:grid-cols-3
+      lg:grid-cols-4
+      gap-5
     `}
   }
 `;
@@ -244,9 +302,6 @@ const ResCard = styled(Link)`
   ${tw`
     mb-6
     mt-2
-    min-h-[20rem] 
-    w-full
-    md:max-w-[17rem]
     flex
     flex-col
     items-start
@@ -261,9 +316,29 @@ const ResCard = styled(Link)`
 
   :hover {
     ${tw`
-      p-4
       bg-white
     `}
+
+    h2 {
+      ${tw`
+        pl-2
+        md:pl-4
+      `}
+    }
+
+    .location-box {
+      ${tw`
+        pl-2
+        md:pl-4
+      `}
+    }
+
+    .operating-box {
+      ${tw`
+        px-2
+        md:px-4
+      `}
+    }
   }
 
   img {
@@ -277,6 +352,10 @@ const ResCard = styled(Link)`
     ${tw`
       md:text-lg
       font-semibold
+
+      transition-all
+      duration-200
+      ease-in-out
     `}
   }
 
@@ -290,6 +369,10 @@ const ResCard = styled(Link)`
       text-gray-400
       border-b
       border-gray-400
+
+      transition-all
+      duration-200
+      ease-in-out
     `}
 
     .icons {
@@ -316,6 +399,10 @@ const ResCard = styled(Link)`
       justify-between
       text-sm
       text-gray-400
+
+      transition-all
+      duration-200
+      ease-in-out
     `}
   }
 `;
@@ -323,12 +410,12 @@ const ResCard = styled(Link)`
 const CategoryContainer = styled.div`
   ${tw`
     w-full
-    
+    pb-10
   `}
 
   h1 {
     ${tw`
-      mb-4
+      mb-6
       text-3xl
       md:text-4xl
       font-semibold
@@ -343,11 +430,82 @@ const CategoryContainer = styled.div`
 
   .category-box {
     ${tw`
-      flex
-      flex-wrap
-      items-start
-      justify-between
+      grid 
+      grid-cols-2
+      sm:grid-cols-3
+      md:grid-cols-4
+      lg:grid-cols-5 
+      gap-5
+      pb-4
+
+      transition
+      duration-200
+      ease-in-out
     `}
+
+    .cate-card {
+      .cate-img {
+        ${tw`
+        relative
+        rounded-md
+        overflow-hidden
+
+        transition
+        duration-200
+        ease-in-out
+      `}
+
+        img {
+          ${tw`
+            transition
+            duration-200
+            ease-in-out
+          `}
+        }
+
+        &:before {
+          content: "";
+          ${tw`
+          absolute
+          top-0
+          left-0
+          w-full
+          h-full
+          bg-gray-900
+          bg-opacity-0
+          rounded-md
+
+          transition
+          duration-200
+          ease-in-out
+          z-[5]
+        `}
+        }
+      }
+
+      h2 {
+        ${tw`
+        py-2
+        text-lg
+        font-semibold
+      `}
+      }
+
+      :hover {
+        .cate-img {
+          img {
+            ${tw`
+              scale-110
+            `}
+          }
+          &:before {
+            ${tw`
+              bg-opacity-30
+            `}
+          }
+        }
+      }
+    }
   }
 `;
 

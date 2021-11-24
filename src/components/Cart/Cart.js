@@ -98,6 +98,9 @@ const Cart = () => {
 const CartContainer = styled.div`
   ${tw`
     w-full
+    px-2
+    pb-4
+    bg-white
   `}
 
   .box-title {

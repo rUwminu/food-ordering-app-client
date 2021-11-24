@@ -141,8 +141,6 @@ const LoginContainer = styled.div`
       h-[28rem]
       w-full
       max-w-3xl
-      rounded-sm
-      shadow-lg
     `}
 
     .login-container {

@@ -2,6 +2,9 @@ import {
   RECIPES_DETAILS_FAIL,
   RECIPES_DETAILS_REQUEST,
   RECIPES_DETAILS_SUCCESS,
+  RES_DETAILS_BY_TYPE_FAIL,
+  RES_DETAILS_BY_TYPE_REQUEST,
+  RES_DETAILS_BY_TYPE_SUCCESS,
   RES_DETAILS_FAIL,
   RES_DETAILS_REQUEST,
   RES_DETAILS_SUCCESS,
@@ -24,6 +27,12 @@ export const resDetailsReducer = (state = {}, action) => {
       return { ...state, loading: false, singleRes: action.payload };
     case SINGLE_RES_DETAILS_FAIL:
       return { ...state, loading: false, singleResError: "There An Error" };
+    case RES_DETAILS_BY_TYPE_REQUEST:
+      return { ...state, loading: true };
+    case RES_DETAILS_BY_TYPE_SUCCESS:
+      return { ...state, loading: false, typeRes: action.payload };
+    case RES_DETAILS_BY_TYPE_FAIL:
+      return { ...state, loading: false, typeResError: action.payload };
     default:
       return state;
   }

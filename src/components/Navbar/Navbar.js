@@ -117,7 +117,7 @@ const Navbar = () => {
               Menu
             </Link>
             <Link
-              to="info/type?name=about"
+              to="/food-ordering-app-client/info/type?name=about"
               onClick={() => setIsLinkActive("contact")}
               className={`links-items ${
                 isLinkActive === "contact" && "text-dred"
@@ -135,7 +135,10 @@ const Navbar = () => {
           >
             <Link
               to={`/food-ordering-app-client`}
-              onClick={() => setIsActive(false)}
+              onClick={() => {
+                setIsActive(false);
+                setIsLinkActive("home");
+              }}
               className={`nav-link ${isLinkActive === "home" && "text-dred"}`}
             >
               Home
@@ -144,7 +147,10 @@ const Navbar = () => {
               to="feature"
               smooth={true}
               offset={isMobile ? -50 : -70}
-              onClick={() => setIsActive(false)}
+              onClick={() => {
+                setIsActive(false);
+                setIsLinkActive("services");
+              }}
               className={`nav-link ${
                 isLinkActive === "services" && "text-dred"
               }`}
@@ -152,20 +158,26 @@ const Navbar = () => {
               Feature
             </NavLink>
             <Link
-              to={`/food-ordering-app-client`}
-              onClick={() => setIsActive(false)}
+              to={`/food-ordering-app-client/menu`}
+              onClick={() => {
+                setIsActive(false);
+                setIsLinkActive("menu");
+              }}
               className={`nav-link ${isLinkActive === "menu" && "text-dred"}`}
             >
               Menu
             </Link>
             <Link
-              to={`/food-ordering-app-client`}
-              onClick={() => setIsActive(false)}
+              to={`/food-ordering-app-client/info/type?name=about`}
+              onClick={() => {
+                setIsActive(false);
+                setIsLinkActive("contact");
+              }}
               className={`nav-link ${
                 isLinkActive === "contact" && "text-dred"
               }`}
             >
-              Contact
+              About us
             </Link>
           </AbsoluteNav>
         )}
