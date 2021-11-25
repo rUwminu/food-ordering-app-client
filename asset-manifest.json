@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/food-ordering-app-client/static/css/main.e5db15d7.chunk.css",
-    "main.js": "/food-ordering-app-client/static/js/main.6309ef74.chunk.js",
-    "main.js.map": "/food-ordering-app-client/static/js/main.6309ef74.chunk.js.map",
+    "main.css": "/food-ordering-app-client/static/css/main.98ffbb19.chunk.css",
+    "main.js": "/food-ordering-app-client/static/js/main.4b903894.chunk.js",
+    "main.js.map": "/food-ordering-app-client/static/js/main.4b903894.chunk.js.map",
     "runtime-main.js": "/food-ordering-app-client/static/js/runtime-main.5384ee9c.js",
     "runtime-main.js.map": "/food-ordering-app-client/static/js/runtime-main.5384ee9c.js.map",
-    "static/js/2.5411c4d4.chunk.js": "/food-ordering-app-client/static/js/2.5411c4d4.chunk.js",
-    "static/js/2.5411c4d4.chunk.js.map": "/food-ordering-app-client/static/js/2.5411c4d4.chunk.js.map",
+    "static/js/2.84577455.chunk.js": "/food-ordering-app-client/static/js/2.84577455.chunk.js",
+    "static/js/2.84577455.chunk.js.map": "/food-ordering-app-client/static/js/2.84577455.chunk.js.map",
     "index.html": "/food-ordering-app-client/index.html",
-    "static/css/main.e5db15d7.chunk.css.map": "/food-ordering-app-client/static/css/main.e5db15d7.chunk.css.map",
-    "static/js/2.5411c4d4.chunk.js.LICENSE.txt": "/food-ordering-app-client/static/js/2.5411c4d4.chunk.js.LICENSE.txt",
+    "static/css/main.98ffbb19.chunk.css.map": "/food-ordering-app-client/static/css/main.98ffbb19.chunk.css.map",
+    "static/js/2.84577455.chunk.js.LICENSE.txt": "/food-ordering-app-client/static/js/2.84577455.chunk.js.LICENSE.txt",
     "static/media/Delivery.7aaeae6e.svg": "/food-ordering-app-client/static/media/Delivery.7aaeae6e.svg",
     "static/media/Options.91f568aa.svg": "/food-ordering-app-client/static/media/Options.91f568aa.svg",
     "static/media/Payment.6f7aa955.svg": "/food-ordering-app-client/static/media/Payment.6f7aa955.svg",
@@ -45,8 +45,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.5384ee9c.js",
-    "static/js/2.5411c4d4.chunk.js",
-    "static/css/main.e5db15d7.chunk.css",
-    "static/js/main.6309ef74.chunk.js"
+    "static/js/2.84577455.chunk.js",
+    "static/css/main.98ffbb19.chunk.css",
+    "static/js/main.4b903894.chunk.js"
   ]
 }
