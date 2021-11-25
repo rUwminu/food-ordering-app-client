@@ -21,6 +21,7 @@ import {
   AssignmentInd,
   ViewList,
   Logout,
+  DeliveryDining,
 } from "@mui/icons-material";
 
 // Svg
@@ -36,12 +37,13 @@ const Navbar = () => {
   const [isScrollTop, setIsScrollTop] = useState(true);
   const [isMobile, setIsMobile] = useState();
   const [isDropOption, setIsDropOption] = useState(false);
+  const [isNewUpdate, setIsNewUpdate] = useState(false);
 
   const userSignIn = useSelector((state) => state.userSignIn);
   const { user } = userSignIn;
 
   const orderList = useSelector((state) => state.orderList);
-  const { myCart } = orderList;
+  const { myCart, myOrder } = orderList;
 
   const handleResize = () => {
     if (window.innerWidth < 908) {
@@ -64,12 +66,26 @@ const Navbar = () => {
     lastScroll = currentTop;
   };
 
+  const handleCheckNewUpdate = async () => {
+    const checkIsNewUpdate = await myOrder.filter((x) => x.isView === false);
+
+    if (checkIsNewUpdate.length > 0) {
+      setIsNewUpdate(true);
+    } else {
+      setIsNewUpdate(false);
+    }
+  };
+
   useEffect(() => {
     handleResize();
     handleScroll();
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    handleCheckNewUpdate();
+  }, [myOrder]);
 
   const handleLogout = () => {
     setIsDropOption(false);
@@ -194,12 +210,22 @@ const Navbar = () => {
               className={`icon-style ${isSearchActive && "search-active"}`}
             />
           </div>
+          <Link
+            to="/food-ordering-app-client/user/type?name=order"
+            className="cart-box"
+          >
+            <DeliveryDining
+              className={`icon-style ${isMobile && isSearchActive && "hidden"}`}
+            />
+            {myOrder && isNewUpdate && <span className="red-dot">&nbsp;</span>}
+          </Link>
           <Link to="/food-ordering-app-client/cart" className="cart-box">
             <ShoppingCart
               className={`icon-style ${isMobile && isSearchActive && "hidden"}`}
             />
             {myCart.length > 0 && <span className="red-dot">&nbsp;</span>}
           </Link>
+
           {user ? (
             <div className="user-box">
               <div className="user-logo">

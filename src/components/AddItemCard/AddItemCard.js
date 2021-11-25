@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../redux/actions/orderAction";
 
 // Icons
-import { Add, Remove, AddShoppingCart } from "@mui/icons-material";
+import { Add, Remove, AddShoppingCart, Clear } from "@mui/icons-material";
 
 const AddItemCard = ({ setIsAddOpen, isAddOpen, getItemId }) => {
   const dispatch = useDispatch();
@@ -68,6 +68,9 @@ const AddItemCard = ({ setIsAddOpen, isAddOpen, getItemId }) => {
               </div>
             </div>
           </div>
+          <div className="card-close-btn" onClick={() => setIsAddOpen(false)}>
+            <Clear className="icons" />
+          </div>
         </div>
       )}
     </MainContainer>
@@ -112,6 +115,7 @@ const MainContainer = styled.div`
 
   .add-card {
     ${tw`
+        relative
         p-4
         w-full
         md:max-w-3xl
@@ -157,7 +161,7 @@ const MainContainer = styled.div`
 
       .card-btn-box {
         ${tw`
-            mt-2
+            md:mt-2
             flex
             flex-col
             items-start
@@ -241,6 +245,46 @@ const MainContainer = styled.div`
                 bg-opacity-90
             `}
           }
+        }
+      }
+    }
+
+    .card-close-btn {
+      ${tw`
+        absolute
+        top-0
+        right-0
+        -translate-y-full
+        flex
+        items-center
+        justify-center
+        pt-1
+        px-1
+        w-12
+        h-11
+        md:w-14
+        md:h-[3.25rem]
+        bg-gray-50
+        cursor-pointer
+      `}
+
+      .icons {
+        ${tw`
+          w-full
+          h-full
+          p-1
+          bg-gray-200
+          text-b-orange
+
+          transition
+          duration-200
+          ease-in-out
+        `}
+
+        :hover, :focus {
+          ${tw`
+            bg-gray-100
+          `}
         }
       }
     }

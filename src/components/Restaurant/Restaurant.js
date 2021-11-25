@@ -55,7 +55,7 @@ const Restaurant = () => {
   useEffect(() => {
     // mock API return data, random pick 3 restaurants
     if (allRes && resAllList.length === 0) {
-      let random = allRes.sort(() => 0.5 - Math.random()).slice(0, 3);
+      let random = allRes.sort(() => 0.5 - Math.random()).slice(0, 4);
 
       setResAllList(random);
       setDisResAllList(random);
@@ -67,7 +67,7 @@ const Restaurant = () => {
   }, [allRes, resAllList]);
 
   //console.log(allRes)
-  console.log(resAllList);
+  //console.log(resAllList);
 
   return (
     <ResContainer id="feature">
@@ -141,7 +141,8 @@ const ResContainer = styled.div`
     max-w-6xl
     flex
     flex-col
-    items-center
+    items-start
+    md:items-center
     justify-center
   `}
 
@@ -160,8 +161,8 @@ const ResContainer = styled.div`
       pb-2
       w-full
       max-w-xl
-      text-center
       md:text-lg
+      md:text-center
       text-gray-700
     `}
   }
@@ -170,16 +171,20 @@ const ResContainer = styled.div`
     ${tw`
       my-4
       w-full
-      max-w-4xl
       flex
       items-center
-      justify-around
+      justify-start
+      md:justify-center
+      overflow-x-scroll
+      scrollbar-hide
     `}
 
     .state-tag {
       ${tw`
+        mr-4
         py-1
         px-6
+        min-w-max
         font-semibold
         border
         border-gray-400
@@ -210,21 +215,17 @@ const ResContainer = styled.div`
   .res-container {
     ${tw`
       w-full
-      flex
-      flex-wrap
-      items-center
-      justify-between
+      grid
+      grid-cols-2
+      lg:grid-cols-4
+      gap-2
     `}
   }
 `;
 
 const ResCard = styled(Link)`
   ${tw`
-    mb-6
-    mt-2
-    min-h-[22rem] 
     w-full
-    md:max-w-[22rem]
     flex
     flex-col
     items-start
@@ -239,9 +240,30 @@ const ResCard = styled(Link)`
 
   :hover {
     ${tw`
-      p-4
       bg-white
+      shadow-md
     `}
+
+    h2 {
+      ${tw`
+        pl-2
+        md:pl-4
+      `}
+    }
+
+    .location-box {
+      ${tw`
+        pl-2
+        md:pl-4
+      `}
+    }
+
+    .operating-box {
+      ${tw`
+        px-2
+        md:px-4
+      `}
+    }
   }
 
   img {
@@ -255,6 +277,10 @@ const ResCard = styled(Link)`
     ${tw`
       md:text-lg
       font-semibold
+
+      transition-all
+      duration-200
+      ease-in-out
     `}
   }
 
@@ -268,6 +294,10 @@ const ResCard = styled(Link)`
       text-gray-400
       border-b
       border-gray-400
+
+      transition-all
+      duration-200
+      ease-in-out
     `}
 
     .icons {
@@ -287,6 +317,7 @@ const ResCard = styled(Link)`
 
   .operating-box {
     ${tw`
+      pb-2
       mt-3
       w-full
       flex
@@ -294,6 +325,10 @@ const ResCard = styled(Link)`
       justify-between
       text-sm
       text-gray-400
+
+      transition-all
+      duration-200
+      ease-in-out
     `}
   }
 `;

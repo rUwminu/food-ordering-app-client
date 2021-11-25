@@ -61,39 +61,33 @@ const OrderCart = () => {
   return (
     <OrderCartContainer>
       <div className="inner-container">
-        {myCart && myCart.length > 0 && (
-          <MultiStepForm>
-            <MultiStepProgressbar
-              stepList={stepList}
-              currentStep={currentStep}
-            />
-            <div className="form-container">
-              {formArray &&
-                formArray.map((x, index) => {
-                  let position = "nextSlide";
-                  if (currentStep === index) {
-                    position = "activeSlide";
-                  }
+        <MultiStepForm
+          className={`${myCart.length > 0 ? "" : "pointer-events-none"}`}
+        >
+          <MultiStepProgressbar stepList={stepList} currentStep={currentStep} />
+          <div className="form-container">
+            {formArray &&
+              formArray.map((x, index) => {
+                let position = "nextSlide";
+                if (currentStep === index) {
+                  position = "activeSlide";
+                }
 
-                  if (
-                    currentStep === index - 1 ||
-                    (index === 0 && currentStep === x.length - 1)
-                  ) {
-                    position = "lastSlide";
-                  }
+                if (
+                  currentStep === index - 1 ||
+                  (index === 0 && currentStep === x.length - 1)
+                ) {
+                  position = "lastSlide";
+                }
 
-                  return (
-                    <div
-                      key={index}
-                      className={`absolute-container ${position}`}
-                    >
-                      {x}
-                    </div>
-                  );
-                })}
-            </div>
-          </MultiStepForm>
-        )}
+                return (
+                  <div key={index} className={`absolute-container ${position}`}>
+                    {x}
+                  </div>
+                );
+              })}
+          </div>
+        </MultiStepForm>
         <div className="cart-container">
           <Cart />
         </div>

@@ -6,6 +6,7 @@ import {
   CREATE_NEW_ORDER,
   DELETE_OLD_ORDER,
   REMOVE_ITEM_FROM_CART,
+  UPDATE_IS_VIEW_ORDER,
   UPDATE_PAY_ORDER,
 } from "../constants/orderConstant";
 
@@ -63,7 +64,7 @@ export const createNewOrder = (paymentType) => (dispatch) => {
     const randomProgress = {
       status: progressType[Math.floor(Math.random() * progressType.length)],
       datetime: Date.now(),
-    }
+    };
 
     // Api returned data object
     const newOrderData = {
@@ -74,6 +75,7 @@ export const createNewOrder = (paymentType) => (dispatch) => {
       paymentType,
       subTotal: subTotal.toFixed(2),
       isPay: false,
+      isView: false,
       createdAt: Date.now(),
     };
 
@@ -100,4 +102,8 @@ export const updatePayOrder = (orderId) => (dispatch) => {
     type: UPDATE_PAY_ORDER,
     payload: orderId,
   });
+};
+
+export const updateIsViewOrder = () => (dispatch) => {
+  dispatch({ type: UPDATE_IS_VIEW_ORDER });
 };

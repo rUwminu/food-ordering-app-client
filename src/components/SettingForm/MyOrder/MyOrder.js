@@ -4,23 +4,31 @@ import styled from "styled-components";
 import moment from "moment";
 
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateIsViewOrder } from "../../../redux/actions/orderAction";
 
 const MyOrder = () => {
-  const [allOrderlist, setAllOrderList] = useState();
+  const dispatch = useDispatch();
+  const [allOrderlist, setAllOrderList] = useState([]);
 
   const orderList = useSelector((state) => state.orderList);
   const { myOrder } = orderList;
 
   useEffect(() => {
-    if (myOrder) setAllOrderList(myOrder);
+    if (myOrder) {
+      setAllOrderList(myOrder);
+    }
   }, [myOrder]);
+
+  useEffect(() => {
+    if (myOrder) dispatch(updateIsViewOrder());
+  }, []);
 
   return (
     <MainContainer>
       <h1 className="form-title">My Order</h1>
       <div className="order-list-container">
-        {allOrderlist ? (
+        {allOrderlist && allOrderlist.length > 0 ? (
           allOrderlist.map((x) => {
             const {
               id,
@@ -48,7 +56,7 @@ const MyOrder = () => {
                   <div className="product-payment">{paymentType}</div>
                   <div className="product-createdat">
                     <h3>Order Date</h3>
-                    <span>{moment(createdAt).format("LLL")}</span>
+                    <span>{moment(createdAt).format("DD MMM YY, h:mm a")}</span>
                   </div>
                 </div>
                 <div
@@ -102,6 +110,9 @@ const MainContainer = styled.div`
       items-start
       justify-start
       w-full
+      max-h-[40rem]
+      overflow-y-scroll
+      scrollbar-hide
     `}
 
     .order-card {
@@ -170,7 +181,15 @@ const MainContainer = styled.div`
         ${tw`
           mb-2
           md:mb-0
+          w-20
+          text-lg
+          md:text-center
+          font-bold
         `}
+
+        :first-letter {
+          text-transform: capitalize;
+        }
       }
 
       .product-createdat {

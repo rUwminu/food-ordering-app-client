@@ -5,6 +5,7 @@ import {
   CREATE_NEW_ORDER,
   REMOVE_ITEM_FROM_CART,
   UPDATE_PAY_ORDER,
+  UPDATE_IS_VIEW_ORDER,
 } from "../constants/orderConstant";
 
 export const orderListReducer = (
@@ -80,6 +81,11 @@ export const orderListReducer = (
       } else {
         return state;
       }
+    case UPDATE_IS_VIEW_ORDER:
+      const newArray = state.myOrder.map((item) => {
+        return { ...item, isView: true };
+      });
+      return { ...state, myOrder: [...newArray] };
     default:
       return state;
   }

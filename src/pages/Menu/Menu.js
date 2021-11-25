@@ -291,7 +291,6 @@ const PickContainer = styled.div`
       w-full
       grid 
       grid-cols-2
-      md:grid-cols-3
       lg:grid-cols-4
       gap-5
     `}
@@ -317,6 +316,7 @@ const ResCard = styled(Link)`
   :hover {
     ${tw`
       bg-white
+      shadow-md
     `}
 
     h2 {
@@ -392,6 +392,7 @@ const ResCard = styled(Link)`
 
   .operating-box {
     ${tw`
+      pb-2
       mt-3
       w-full
       flex

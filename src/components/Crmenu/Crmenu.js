@@ -239,9 +239,7 @@ const MenuContainer = styled.div`
       flex
       items-center
       justify-start
-      w-48
       min-w-max
-      md:w-56
       p-2
       pr-6
       rounded-[2.5rem]
@@ -254,8 +252,10 @@ const MenuContainer = styled.div`
 
     .img-box {
       ${tw`
-        w-12
-        h-12
+        w-10
+        h-10
+        sm:w-12
+        sm:h-12
         md:w-14
         md:h-14
         p-2
@@ -277,7 +277,7 @@ const MenuContainer = styled.div`
 
     h2 {
       ${tw`
-        ml-6
+        ml-3
         text-lg
         font-bold
       `}
