@@ -1,5 +1,7 @@
 # Getting Started
 
+Project site: <a>https://ruwminu.github.io/food-ordering-app-client/</a>
+
 All data in this website is getting from src folder, and only local storage of the web browser. So there no concern on adding and removing cart item or any check out function.
 
 There are mock user account for this website as demostration for login purpose.
@@ -26,6 +28,28 @@ It is inspired by other developer, and I myself decided to develop the applicati
 This project is mainly for practise frontend development skill and data manipulation purposes. To save time on develop backend, mock up data allow the frontend to perform it main function without the hassle of backend development.
 
 So, feel free to take the source code.
+
+# Project Feature
+
+<li>Full Responsive Website for mobile and desktop</li>
+<li>Website is develop in Backend ready for data intergation</li>
+<li>Mock up API data, user account and restaurant data are display in dynamic</li>
+<li>Page Routing using React Route Dom V6</li>
+<li>Content and data manage using React Redux</li>
+<li>Mock up application function for basic food ordering application. Exp: Login, Logout, View Restaurant, Add product to cart, Create new order and etc</li>
+
+# Project Stack
+
+## Framework ##
+<li>React JS</li>
+
+## Content Management ##
+<li>React Redux</li>
+
+## Styling ##
+<li>Tailwind CSS</li>
+<li>Styled Components</li>
+<li>Material Ui Icon</li>
 
 # Credit For The Idea Of The Project
 
