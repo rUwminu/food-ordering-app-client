@@ -29,7 +29,8 @@ So, feel free to take the source code.
 
 # Credit For The Idea Of The Project
 
-- UI design of the main application.
-- Restaurant listing and design layout.
+- UI design of the main application. <a href='https://www.uplabs.com/posts/food-delivery-landing-page-61201be6-071f-440b-9572-48f19706262d#'>by INEXTURE Solutions LLP</a>
+- Restaurant listing and design layout. <a href='https://demo.yoyumm.com/restaurant/menu/the-stone-house/31'>By Yoyumm</a>
+- User Profile Page Ui layout. <a href='https://dribbble.com/shots/13947179-Appreciation-Platform-Sign-Up'>By Dawid Pietrasiak</a>
 
 
