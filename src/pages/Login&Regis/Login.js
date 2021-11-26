@@ -1,97 +1,97 @@
-import React, { useEffect, useState } from "react";
-import tw from "twin.macro";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import tw from 'twin.macro'
+import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux'
 
-import { LoginForm } from "../../components/index";
+import { LoginForm } from '../../components/index'
 
 // Svg
-import DeliverySvg from "../../assets/LoginSvg/Delivery.svg";
-import OptionSvg from "../../assets/LoginSvg/Options.svg";
-import PaymentSvg from "../../assets/LoginSvg/Payment.svg";
+import DeliverySvg from '../../assets/LoginSvg/Delivery.svg'
+import OptionSvg from '../../assets/LoginSvg/Options.svg'
+import PaymentSvg from '../../assets/LoginSvg/Payment.svg'
 // Mui
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material'
 
 const LoginSliderData = [
   {
     id: 1,
     image: OptionSvg,
-    title: "Still thinking on what to eat?",
-    body: "At Foodie, there variaty of favour for you to pick! No same old taste from yor surrounding restaurant.",
+    title: 'Still thinking on what to eat?',
+    body: 'At Foodie, there variaty of favour for you to pick! No same old taste from yor surrounding restaurant.',
   },
   {
     id: 2,
     image: DeliverySvg,
-    title: "We are SPEED, and reliable",
-    body: "We may not as fast as light, but we will make sure your order are delivered in expected time and hot!",
+    title: 'We are SPEED, and reliable',
+    body: 'We may not as fast as light, but we will make sure your order are delivered in expected time and hot!',
   },
   {
     id: 3,
     image: PaymentSvg,
-    title: "Fast and Secure Payment",
-    body: "We have partner with most secure payment vendor to secure your infomation.",
+    title: 'Fast and Secure Payment',
+    body: 'We have partner with most secure payment vendor to secure your infomation.',
   },
-];
+]
 
 const Login = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const [listItem, setListItem] = useState([...LoginSliderData]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [listItem, setListItem] = useState([...LoginSliderData])
+  const [currentIndex, setCurrentIndex] = useState(0)
 
-  const userSignIn = useSelector((state) => state.userSignIn);
-  const { user } = userSignIn;
-
-  useEffect(() => {
-    if (user) navigate("/food-ordering-app-client");
-  }, [user]);
+  const userSignIn = useSelector((state) => state.userSignIn)
+  const { user } = userSignIn
 
   useEffect(() => {
-    const lastIndex = listItem.length - 1;
+    if (user) navigate('/food-ordering-app-client')
+  }, [user])
+
+  useEffect(() => {
+    const lastIndex = listItem.length - 1
 
     if (currentIndex < 0) {
-      setCurrentIndex(lastIndex);
+      setCurrentIndex(lastIndex)
     }
 
     if (currentIndex > lastIndex) {
-      setCurrentIndex(0);
+      setCurrentIndex(0)
     }
-  }, [currentIndex, listItem]);
+  }, [currentIndex, listItem])
 
   useEffect(() => {
     let slider = setInterval(() => {
-      setCurrentIndex(currentIndex + 1);
-    }, 8000);
+      setCurrentIndex(currentIndex + 1)
+    }, 8000)
 
     //run one time after one
-    return () => clearInterval(slider);
-  }, [currentIndex]);
+    return () => clearInterval(slider)
+  }, [currentIndex])
 
   return (
     <LoginContainer>
-      <div className="inner-container">
-        <div className="login-container">
+      <div className='inner-container'>
+        <div className='login-container'>
           <LoginForm />
         </div>
 
-        <div className="promote-container">
+        <div className='promote-container'>
           {listItem &&
             listItem.map((x, index) => {
-              const { id, image, title, body } = x;
+              const { id, image, title, body } = x
 
-              let position = "nextSlideV";
+              let position = 'nextSlideV'
               if (currentIndex === index) {
-                position = "activeSlideV";
+                position = 'activeSlideV'
               }
 
               if (
                 currentIndex === index - 1 ||
                 (index === 0 && currentIndex === listItem.length - 1)
               ) {
-                position = "lastSlideV";
+                position = 'lastSlideV'
               }
 
               return (
@@ -100,34 +100,36 @@ const Login = () => {
                   <h1>{title}</h1>
                   <p>{body}</p>
                 </div>
-              );
+              )
             })}
-          <div className="slider-dot-container">
+          <div className='slider-dot-container'>
             {listItem &&
               listItem.map((x, index) => (
-                <div className={`dot ${currentIndex === index && "active"}`} />
+                <div className={`dot ${currentIndex === index && 'active'}`} />
               ))}
-            <div className="slider-arrow-container">
+            <div className='slider-arrow-container'>
               <KeyboardArrowLeft
                 onClick={() => setCurrentIndex(currentIndex - 1)}
-                className="arrow-icon"
+                className='arrow-icon'
               />
               <KeyboardArrowRight
                 onClick={() => setCurrentIndex(currentIndex + 1)}
-                className="arrow-icon"
+                className='arrow-icon'
               />
             </div>
           </div>
         </div>
       </div>
     </LoginContainer>
-  );
-};
+  )
+}
 
 const LoginContainer = styled.div`
   ${tw`
-    pt-28
-    pb-16
+    flex
+    items-center
+    justify-center
+    h-screen
     w-screen
     overflow-hidden
   `}
@@ -289,6 +291,6 @@ const LoginContainer = styled.div`
     opacity: 0;
     transform: translateX(100%);
   }
-`;
+`
 
-export default Login;
+export default Login
